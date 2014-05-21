@@ -1,14 +1,16 @@
 angular.module('starter.controllers', [])
 
-.controller('DashCtrl', function($scope) {
+.controller('AlarmsCtrl', function($scope) {
 })
 
-.controller('FriendsCtrl', function($scope, Friends) {
-  $scope.friends = Friends.all();
+.controller('AdressesCtrl', function($scope, $state) {
+	$scope.goToAdd = function(){
+		$state.go('tab.adresses-add');
+	};
 })
 
-.controller('FriendDetailCtrl', function($scope, $stateParams, Friends) {
-  $scope.friend = Friends.get($stateParams.friendId);
+.controller('NewAdressCtrl', function($scope, $stateParams) {
+
 })
 
 .controller('AccountCtrl', function($scope) {
