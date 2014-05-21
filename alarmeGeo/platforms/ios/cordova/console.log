@@ -1,0 +1,8 @@
+2014-05-16 14:50:52.058 HelloCordova[5900:70b] Multi-tasking -> Device: YES, App: YES
+2014-05-16 14:50:52.095 HelloCordova[5900:70b] Unlimited access to network resources
+2014-05-16 14:50:52.101 HelloCordova[5900:70b] Restoring old webstorage backup. From: '/Users/guilherme/Library/Application Support/iPhone Simulator/7.1/Applications/C2890169-CDE3-4D14-89D8-511A68518A36/Library/WebKit/LocalStorage/file__0.localstorage' To: '/Users/guilherme/Library/Application Support/iPhone Simulator/7.1/Applications/C2890169-CDE3-4D14-89D8-511A68518A36/Library/Caches/file__0.localstorage'.
+2014-05-16 14:50:52.106 HelloCordova[5900:70b] Removing old webstorage backup: '/Users/guilherme/Library/Application Support/iPhone Simulator/7.1/Applications/C2890169-CDE3-4D14-89D8-511A68518A36/Library/WebKit/LocalStorage/file__0.localstorage'.
+2014-05-16 14:50:52.637 HelloCordova[5900:70b] [CDVTimer][statusbar] 82.818985ms
+2014-05-16 14:50:52.638 HelloCordova[5900:70b] [CDVTimer][TotalPluginStartup] 83.483994ms
+2014-05-16 14:50:52.857 HelloCordova[5900:70b] Resetting plugins due to page load.
+2014-05-16 14:50:53.312 HelloCordova[5900:70b] Finished load of: file:///Users/guilherme/Library/Application%20Support/iPhone%20Simulator/7.1/Applications/C2890169-CDE3-4D14-89D8-511A68518A36/HelloCordova.app/www/index.html#/tab/dash
