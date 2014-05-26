@@ -11,9 +11,24 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
-    if(window.cordova && window.cordova.plugins.Keyboard) {
-      cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
-    }
+
+    window.navigator.geolocation.getCurrentPosition(function(location){});
+
+    var bgGeo = window.plugins.backgroundGeoLocation;
+
+    var callbackFn = function(location) {
+        console.log('GEOOOOO: BackgroundGeoLocation callback:  ' + location.latitude + ',' + location.longitude);
+        bgGeo.finish();
+    };
+
+    var failureFn = function(error) {
+      console.log('BackgroundGeoLocation error');
+    };
+
+    bgGeo.configure(callbackFn,failureFn,{url: 'http://only.for.android.com/update_location.json', desiredAccuracy: 10, stationaryRadius: 20,distanceFilter: 30,debug:true});
+
+    bgGeo.start();
+
     if(window.StatusBar) {
       // org.apache.cordova.statusbar required
       StatusBar.styleDefault();
@@ -38,31 +53,31 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
 
     // Each tab has its own nav history stack:
 
-    .state('tab.dash', {
-      url: '/dash',
+    .state('tab.alarms', {
+      url: '/alarms',
       views: {
-        'tab-dash': {
-          templateUrl: 'templates/tab-dash.html',
-          controller: 'DashCtrl'
+        'alarms': {
+          templateUrl: 'templates/alarms.html',
+          controller: 'AlarmsCtrl'
         }
       }
     })
 
-    .state('tab.friends', {
-      url: '/friends',
+    .state('tab.adresses', {
+      url: '/adresses',
       views: {
-        'tab-friends': {
-          templateUrl: 'templates/tab-friends.html',
-          controller: 'FriendsCtrl'
+        'adresses': {
+          templateUrl: 'templates/adresses.html',
+          controller: 'AdressesCtrl'
         }
       }
     })
-    .state('tab.friend-detail', {
-      url: '/friend/:friendId',
+    .state('tab.adresses-add', {
+      url: '/adresses/add',
       views: {
-        'tab-friends': {
-          templateUrl: 'templates/friend-detail.html',
-          controller: 'FriendDetailCtrl'
+        'adresses': {
+          templateUrl: 'templates/adresses-add.html',
+          controller: 'NewAdressCtrl'
         }
       }
     })
@@ -78,7 +93,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
     })
 
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/tab/dash');
+  $urlRouterProvider.otherwise('/tab/alarms');
 
 });
 
