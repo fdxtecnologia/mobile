@@ -11,9 +11,24 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
-    if(window.cordova && window.cordova.plugins.Keyboard) {
-      cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
-    }
+
+    window.navigator.geolocation.getCurrentPosition(function(location){});
+
+    var bgGeo = window.plugins.backgroundGeoLocation;
+
+    var callbackFn = function(location) {
+        console.log('GEOOOOO: BackgroundGeoLocation callback:  ' + location.latitude + ',' + location.longitude);
+        bgGeo.finish();
+    };
+
+    var failureFn = function(error) {
+      console.log('BackgroundGeoLocation error');
+    };
+
+    bgGeo.configure(callbackFn,failureFn,{url: 'http://only.for.android.com/update_location.json', desiredAccuracy: 10, stationaryRadius: 20,distanceFilter: 30,debug:true});
+
+    bgGeo.start();
+
     if(window.StatusBar) {
       // org.apache.cordova.statusbar required
       StatusBar.styleDefault();
