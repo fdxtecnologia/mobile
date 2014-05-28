@@ -7,27 +7,66 @@
 // 'starter.controllers' is found in controllers.js
 angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
 
-.run(function($ionicPlatform) {
+.run(function($ionicPlatform, $interval) {
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
+    
+    var watchID;
+    var watchIDControl;
+    var count = 0;
+    var lastLocation = window.localStorage["Location"];
 
     window.navigator.geolocation.getCurrentPosition(function(location){});
 
-    var bgGeo = window.plugins.backgroundGeoLocation;
+    function measure(lat1, lon1, lat2, lon2){  // generally used geo measurement function
+      var R = 6378.137; // Radius of earth in KM
+      var dLat = (lat2 - lat1) * Math.PI / 180;
+      var dLon = (lon2 - lon1) * Math.PI / 180;
+      var a = Math.sin(dLat/2) * Math.sin(dLat/2) +
+      Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
+      Math.sin(dLon/2) * Math.sin(dLon/2);
+      var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+      var d = R * c;
+      return d * 1000; // meters
+    }
 
-    var callbackFn = function(location) {
-        console.log('GEOOOOO: BackgroundGeoLocation callback:  ' + location.latitude + ',' + location.longitude);
-        bgGeo.finish();
+    var onWatch = function(location){
+      console.log("[FG] Latitude: " + location.coords.latitude + "Longitude: "+ location.coords.longitude);
+
+      lastLocation = angular.fromJson(window.localStorage["Location"]);
+
+      if(lastLocation === undefined){
+        window.localStorage["Location"] = angular.toJson({latitude: location.coords.latitude, longitude: location.coords.longitude});
+      }else{
+
+        var distance = measure(lastLocation.latitude, lastLocation.longitude, location.coords.latitude, location.coords.longitude);
+        
+      }
     };
 
-    var failureFn = function(error) {
-      console.log('BackgroundGeoLocation error');
+    var onErrorWatch = function(error){
+      window.navigator.geolocation.clearWatch(watchID);
+      watchID = undefined;
+      watchID = window.navigator.geolocation.watchPosition(onWatch,onErrorWatch,{  maximumAge: 3000, timeout: 40000, enableHighAccuracy: true });
     };
 
-    bgGeo.configure(callbackFn,failureFn,{url: 'http://only.for.android.com/update_location.json', desiredAccuracy: 10, stationaryRadius: 20,distanceFilter: 30,debug:true});
+    watchID = window.navigator.geolocation.watchPosition(onWatch,onErrorWatch,{  maximumAge: 3000, timeout: 40000, enableHighAccuracy: true });
 
-    bgGeo.start();
+    // var bgGeo = window.plugins.backgroundGeoLocation;
+
+    // var callbackFn = function(location) {
+    //     console.log('[BG] :  ' + location.latitude + ',' + location.longitude);
+    //     bgGeo.finish();
+    // };
+
+    // var failureFn = function(error) {
+    //   console.log('BackgroundGeoLocation error');
+    // };
+
+    // bgGeo.configure(callbackFn,failureFn,{url: 'http://only.for.android.com/update_location.json', desiredAccuracy: 10, stationaryRadius: 20,distanceFilter: 30,debug:true});
+
+    // bgGeo.start();
 
     if(window.StatusBar) {
       // org.apache.cordova.statusbar required
