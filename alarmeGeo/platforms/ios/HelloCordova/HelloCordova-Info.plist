@@ -79,5 +79,7 @@
     </array>
     <key>CFBundleShortVersionString</key>
     <string>0.0.1</string>
+    <key>Google Maps API Key</key>
+    <string>AIzaSyBuoIHEuvFPRZ3g5RlMurfVzhUoHf40y9M</string>
   </dict>
 </plist>

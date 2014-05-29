@@ -1,15 +1,19 @@
 <!-- adresses-add.html -->
-<ion-view title="New Address">
-	<ion-content has-header="true" padding="true">
+<ion-view title="New Address" hide-back-button="false">
+	<ion-content has-header="true" padding="true" data-ng-controller="NewAdressCtrl" data-ng-init="initialize()">
 	 	<div class="list">
 		  <label class="item item-input item-stacked-label">
-		    <span class="input-label">What is this place for you?</span>
-		    <input type="text" placeholder="E.g: Home, Work, John's house, ...">
+		    <span class="input-label">Nome do local?</span>
+		    <input type="text" placeholder="Ex: Casa, Trabalho, Shopping" ng-model="data.nomeLocal">
 		  </label>
 		  <label class="item item-input item-stacked-label">
-		    <span class="input-label">Enter the address:</span>
-		    <input type="text" placeholder="E.g: 1440, Alarm clock st.">
+		    <span class="input-label">Entre com o endereço:</span>
+		    <input type="text" placeholder="Nome da rua, numero, bairro, cidade" ng-model="data.endereco" ng-mouseleave="centerOnMe()">
 		  </label>
+		 
 		</div>
+		
+	      <div id="map"></div>
+ 			<a class="button button-block button-positive" style="margin-right: auto; margin-left: auto;" ng-click="saveAdress()">Salvar</a>
 	</ion-content>
 </ion-view>

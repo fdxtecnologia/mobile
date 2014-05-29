@@ -57,4 +57,7 @@
     <feature name="Notification">
         <param name="ios-package" value="CDVNotification" />
     </feature>
+    <feature name="GoogleMaps">
+        <param name="ios-package" value="GoogleMaps" />
+    </feature>
 </widget>
