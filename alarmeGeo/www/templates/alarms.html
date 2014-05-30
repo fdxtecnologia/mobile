@@ -1,6 +1,25 @@
 <!-- alarms.html -->
 <ion-view title="Alarms">
 	<ion-content class="has-header">
-		<h1>Alarms</h1>
+		<div class="card">
+			<a href="#/tab/alarms/new">
+				<button class="button button-block button-light">
+					New Alarm
+				</button>
+			</a>
+		</div>
+		<div class="card">
+			<ul class="list">
+				<li class="item item-toggle" ng-repeat="item in alarmsShow" >
+					<a style="text-decoration: none;" href=""><div><h2>{{item.title}}</h2><p>{{ item.adress.local }}</p></div></a>
+					<label class="toggle toggle-calm">
+						<input type="checkbox"> 
+						<div class="track">
+							<div class="handle" ng-value="item.checked" ></div>
+						</div>
+					</label> 
+				</li>
+			</ul>
+		</div>
 	</ion-content>
 </ion-view>
