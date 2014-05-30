@@ -1,0 +1,28 @@
+<!-- new-alarm.html -->
+<ion-view title="New Alarm">
+    <ion-content class="has-header">
+    	<div class="list card">
+    		<label class="item item-input item-text-wrap">
+                <input type="text" placeholder="Alarm name..." ng-model="input.title">
+    		</label>
+    	</div>
+
+        <div class="list card">
+            <label class="item item-input item-select item-text-wrap">
+                <a href="#/tab/adresses/add" >
+                    <span class="ion-plus-round" style="float: left; padding-right: 15px;"></span>
+                </a>
+                <div class="input-label">
+                    Adress
+                </div>
+                <select ng-model="input.ad" data-ng-options="a.local for a in adresses"></select>
+            </label>   
+        </div>
+        <div class="card item item-input">
+            <textarea style="min-height: 100px;" class="" id="note" placeholder="Note..."></textarea>
+        </div>
+        <div class="card">
+            <a href="" ng-click="createAlarm()"><button class="button button-block button-light" >Create</button></a>
+        </div>
+    </ion-content>
+</ion-view>
