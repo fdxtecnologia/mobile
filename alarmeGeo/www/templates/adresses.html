@@ -1,6 +1,10 @@
 <!-- adresses.html -->
 <ion-view title="Addresses">
-	<ion-content class="has-header">
+	<ion-content class="has-header" data-ng-init="loadEnds()">
+		<div ng-repeat="item in items">
+			Nome: {{item.local}}<br />
+			Endereço: {{item.end}}<br /><br />
+		</div>
 		<button class="button button-block button-positive" ng-click="goToAdd()">
 	 		New Adress
 		</button>
