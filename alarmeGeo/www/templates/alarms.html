@@ -8,18 +8,12 @@
 				</button>
 			</a>
 		</div>
-		<div class="card">
-			<ul class="list">
-				<li class="item item-toggle" ng-repeat="item in alarmsShow" >
-					<a style="text-decoration: none;" href=""><div><h2>{{item.title}}</h2><p>{{ item.adress.local }}</p></div></a>
-					<label class="toggle toggle-calm">
-						<input type="checkbox"> 
-						<div class="track">
-							<div class="handle" ng-value="item.checked" ></div>
-						</div>
-					</label> 
-				</li>
-			</ul>
+		<div class="row list" ng-repeat="item in alarmsShow">
+			<a class="col col-10 item" href="" ng-href="#/tab/alarms/{{item.id}}"><span class="ion-ios7-alarm-outline" style="vertical-align: middle;"></span></a>
+			<ion-toggle class="col" ng-model="item.checked" ng-init="item.checked" ng-change="changeStatus(item.checked)" toggle-class="toggle-calm"> 
+				<h2>{{ item.title }}</h2>
+				<p>{{ item.adress.local }}</p>
+			</ion-toggle>
 		</div>
 	</ion-content>
 </ion-view>

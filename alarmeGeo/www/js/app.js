@@ -16,8 +16,11 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
         var watchIDControl;
         var count = 0;
         var lastLocation = window.localStorage["Location"];
-        window.localStorage["adresses"] = angular.toJson([]);
+
         window.navigator.geolocation.getCurrentPosition(function(location) {});
+        if (!angular.isDefined(window.localStorage["adresses"])) {
+            window.localStorage["adresses"] = angular.toJson([]);
+        };
 
         function measure(lat1, lon1, lat2, lon2) { // generally used geo measurement function
             var R = 6378.137; // Radius of earth in KM
@@ -112,22 +115,22 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
         }
     })
 
-    .state('tab.editalarm', {
-        url: '/alarms/edit/:itemId',
-        views: {
-            'alarms': {
-                templateUrl: 'templates/edit-alarm.html',
-                controller: 'EditAlarmCtrl'
-            }
-        }
-    })
-
     .state('tab.newalarm', {
         url: '/alarms/new',
         views: {
             'alarms': {
                 templateUrl: 'templates/new-alarm.html',
                 controller: 'NewAlarmCtrl'
+            }
+        }
+    })
+
+    .state('tab.editalarm', {
+        url: '/alarms/:itemId',
+        views: {
+            'alarms': {
+                templateUrl: 'templates/edit-alarm.html',
+                controller: 'EditAlarmCtrl'
             }
         }
     })
