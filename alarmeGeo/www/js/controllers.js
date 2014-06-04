@@ -1,14 +1,19 @@
 angular.module('starter.controllers', [])
 
-.controller('AlarmsCtrl', function($scope, $state) {
-    //$scope.alarmsShow = angular.fromJson(tmp);
+.controller('AlarmsCtrl', function($scope, $state, $rootScope, $location, $stateParams) {
+    //*********************************************************//
     if (angular.isDefined(window.localStorage['alarms'])) {
         $scope.alarmsShow = angular.fromJson(window.localStorage['alarms']);
     } else {
         $scope.alarmsShow = undefined;
     };
-    $scope.removeAlarm = function(alarmId) {
-        alert(alarmId);
+    // fim inicialização
+    //*********************************************************//
+
+    $scope.changeStatus = function(checked) {
+        // update no estado do alarm e rearmazenamento no localStorage - True: ativado, False: desativado
+        this.item.checked = !checked;
+        window.localStorage['alarms'] = angular.toJson($scope.alarmsShow);
     };
 })
 
@@ -45,11 +50,8 @@ angular.module('starter.controllers', [])
     initialize();
     google.maps.event.addDomListener(window, 'load', initialize);
 
-
-
     $scope.centerOnMe = function() {
         var end = $scope.data.endereco;
-
 
         $scope.geocoder = new google.maps.Geocoder();
         //alert("Endereço: "+end);
@@ -110,9 +112,10 @@ angular.module('starter.controllers', [])
 .controller('AccountCtrl', function($scope) {})
 
 .controller('NewAlarmCtrl', function($scope, $state, $rootScope) {
+    //*********************************************************//
     $scope.input = {
         'title': '',
-        'ad': {}
+        'ad': undefined
     };
     $scope.list = [];
     var alarm_json = {
@@ -120,36 +123,44 @@ angular.module('starter.controllers', [])
         'title': '',
         'adress': {},
         'note': '',
-        checked: false
+        'checked': false
     };
 
     if (angular.isDefined($rootScope.input)) {
         $scope.input.title = $rootScope.input.title;
+        $scope.input.note = $rootScope.input.note;
     } else {
         $rootScope.input = $scope.input;
     };
 
     $scope.adresses = angular.fromJson(window.localStorage["adresses"]);
-
+    // fim inicialização de variáveis
+    //*********************************************************//
 
     $scope.$on('$destroy', function() {
         $rootScope.input = $scope.input;
     });
 
     $scope.createAlarm = function() {
-        if ($scope.input.title != '') {
-            // armazenar informações do alarm no localStorage
+        // armazenar informações do alarm no localStorage
+        alarm_json.title = $scope.input.title;
+        alarm_json.adress = $scope.input.ad;
+        alarm_json.note = document.getElementById('note').value;
+        // variáveis armazenadas em alarm_json
 
-            alarm_json.title = $scope.input.title;
-            alarm_json.adress = $scope.input.ad;
-            //alarm_json.note = document.getElementById('note').value;
-
+        // IF titulo do alarme não estiver vazio e possuir endereço selecionado!
+        if ($scope.input.title != '' && angular.isDefined($scope.input.ad)) {
+            // ŚE não existir alarme na memória
             if (!angular.isDefined(window.localStorage['alarms'])) {
+                // Cria o primeiro elemento
+                alarm_json.id = 0;
                 $scope.list = [alarm_json];
                 window.localStorage['alarmIndex'] = 0;
                 window.localStorage['alarms'] = angular.toJson($scope.list);
             } else {
+                // Incrementa index de alarmes e armazena novo alarme
                 window.localStorage['alarmIndex'] = parseInt(window.localStorage['alarmIndex']) + 1;
+                alarm_json.id = parseInt(window.localStorage['alarmIndex']);
                 $scope.list = angular.fromJson(window.localStorage['alarms']); //array list
                 $scope.list.push(alarm_json);
                 window.localStorage['alarms'] = angular.toJson($scope.list);
@@ -157,8 +168,63 @@ angular.module('starter.controllers', [])
 
             $scope.input = undefined;
             $state.go('tab.alarms');
+        } else {
+            alert("Alarm name and address options are required");
         };
     };
 })
 
-.controller('EditAlarmCtrl', function($scope, $state) {});
+.controller('EditAlarmCtrl', function($scope, $state, $rootScope, $stateParams, $location) {
+    // ****************************************************** //
+    $scope.id = $stateParams.itemId;
+    $scope.adresses = angular.fromJson(window.localStorage['adresses']);
+    $scope.alarms = angular.fromJson(window.localStorage['alarms']);
+    $scope.input = {
+        'title': '',
+        'ad': undefined
+    };
+
+    for (var i = 0; i < $scope.alarms.length; i++) {
+        if ($scope.alarms[i].id == $scope.id) {
+            document.getElementById('note').value = $scope.alarms[i].note;
+            $scope.select = $scope.alarms[i];
+            $scope.input.title = $scope.alarms[i].title;
+        };
+    };
+
+    var alarm_json = {
+        'id': 0,
+        'title': '',
+        'adress': {},
+        'note': '',
+        'checked': false
+    };
+    $scope.list = [];
+    // fim inicialização
+    // ****************************************************** //
+
+    $scope.updateAlarm = function() {
+        for (var i = 0; i < $scope.alarms.length; i++) {
+            if ($scope.alarms[i].id == $scope.id) {
+                $scope.alarms[i].note = document.getElementById('note').value;
+                if (angular.isDefined($scope.input.ad)) {
+                    $scope.alarms[i].adress = $scope.input.ad;
+                };
+                $scope.alarms[i].title = $scope.input.title;
+                window.localStorage['alarms'] = angular.toJson($scope.alarms);
+            };
+        };
+        $location.path('tab.alarms');
+    };
+
+    $scope.removeAlarm = function() {
+        for (var i = 0; i < $scope.alarms.length; i++) {
+            if ($scope.alarms[i].id != $scope.id) {
+                $scope.list.push($scope.alarms[i]);
+                console.log(i);
+            };
+        };
+        window.localStorage['alarms'] = angular.toJson($scope.list);
+        $location.path('tab.alarms');
+    };
+});
