@@ -7,13 +7,67 @@
 // 'starter.controllers' is found in controllers.js
 angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
 
-.run(function($ionicPlatform) {
+.run(function($ionicPlatform, $interval) {
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
-    if(window.cordova && window.cordova.plugins.Keyboard) {
-      cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
+    
+    var watchID;
+    var watchIDControl;
+    var count = 0;
+    var lastLocation = window.localStorage["Location"];
+
+    window.navigator.geolocation.getCurrentPosition(function(location){});
+
+    function measure(lat1, lon1, lat2, lon2){  // generally used geo measurement function
+      var R = 6378.137; // Radius of earth in KM
+      var dLat = (lat2 - lat1) * Math.PI / 180;
+      var dLon = (lon2 - lon1) * Math.PI / 180;
+      var a = Math.sin(dLat/2) * Math.sin(dLat/2) +
+      Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
+      Math.sin(dLon/2) * Math.sin(dLon/2);
+      var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+      var d = R * c;
+      return d * 1000; // meters
     }
+
+    var onWatch = function(location){
+      console.log("[FG] Latitude: " + location.coords.latitude + "Longitude: "+ location.coords.longitude);
+
+      lastLocation = angular.fromJson(window.localStorage["Location"]);
+
+      if(lastLocation === undefined){
+        window.localStorage["Location"] = angular.toJson({latitude: location.coords.latitude, longitude: location.coords.longitude});
+      }else{
+
+        var distance = measure(lastLocation.latitude, lastLocation.longitude, location.coords.latitude, location.coords.longitude);
+        
+      }
+    };
+
+    var onErrorWatch = function(error){
+      window.navigator.geolocation.clearWatch(watchID);
+      watchID = undefined;
+      watchID = window.navigator.geolocation.watchPosition(onWatch,onErrorWatch,{  maximumAge: 3000, timeout: 40000, enableHighAccuracy: true });
+    };
+
+    watchID = window.navigator.geolocation.watchPosition(onWatch,onErrorWatch,{  maximumAge: 3000, timeout: 40000, enableHighAccuracy: true });
+
+    // var bgGeo = window.plugins.backgroundGeoLocation;
+
+    // var callbackFn = function(location) {
+    //     console.log('[BG] :  ' + location.latitude + ',' + location.longitude);
+    //     bgGeo.finish();
+    // };
+
+    // var failureFn = function(error) {
+    //   console.log('BackgroundGeoLocation error');
+    // };
+
+    // bgGeo.configure(callbackFn,failureFn,{url: 'http://only.for.android.com/update_location.json', desiredAccuracy: 10, stationaryRadius: 20,distanceFilter: 30,debug:true});
+
+    // bgGeo.start();
+
     if(window.StatusBar) {
       // org.apache.cordova.statusbar required
       StatusBar.styleDefault();
@@ -38,31 +92,31 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
 
     // Each tab has its own nav history stack:
 
-    .state('tab.dash', {
-      url: '/dash',
+    .state('tab.alarms', {
+      url: '/alarms',
       views: {
-        'tab-dash': {
-          templateUrl: 'templates/tab-dash.html',
-          controller: 'DashCtrl'
+        'alarms': {
+          templateUrl: 'templates/alarms.html',
+          controller: 'AlarmsCtrl'
         }
       }
     })
 
-    .state('tab.friends', {
-      url: '/friends',
+    .state('tab.adresses', {
+      url: '/adresses',
       views: {
-        'tab-friends': {
-          templateUrl: 'templates/tab-friends.html',
-          controller: 'FriendsCtrl'
+        'adresses': {
+          templateUrl: 'templates/adresses.html',
+          controller: 'AdressesCtrl'
         }
       }
     })
-    .state('tab.friend-detail', {
-      url: '/friend/:friendId',
+    .state('tab.adresses-add', {
+      url: '/adresses/add',
       views: {
-        'tab-friends': {
-          templateUrl: 'templates/friend-detail.html',
-          controller: 'FriendDetailCtrl'
+        'adresses': {
+          templateUrl: 'templates/adresses-add.html',
+          controller: 'NewAdressCtrl'
         }
       }
     })
@@ -78,7 +132,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
     })
 
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/tab/dash');
+  $urlRouterProvider.otherwise('/tab/alarms');
 
 });
 
