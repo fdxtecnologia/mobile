@@ -98,6 +98,13 @@ module.exports = [
         "clobbers": [
             "plugins.backgroundGeoLocation"
         ]
+    },
+    {
+        "file": "plugins/plugin.google.maps/www/googlemaps-cdv-plugin.js",
+        "id": "plugin.google.maps.phonegap-googlemaps-plugin",
+        "clobbers": [
+            "window.plugins.phonegap-googlemaps-plugin"
+        ]
     }
 ];
 module.exports.metadata = 
@@ -110,8 +117,14 @@ module.exports.metadata =
     "org.apache.cordova.keyboard": "0.1.2",
     "org.apache.cordova.network-information": "0.2.9-dev",
     "org.apache.cordova.splashscreen": "0.3.1-dev",
+<<<<<<< HEAD
     "org.apache.cordova.statusbar": "0.1.3",
     "org.transistorsoft.cordova.background-geolocation": "0.2.0"
+=======
+    "org.apache.cordova.dialogs": "0.2.8-dev",
+    "plugin.google.maps": "1.1.0",
+    "com.googlemaps.ios": "1.8.1"
+>>>>>>> feature/searchEnd
 }
 // BOTTOM OF METADATA
 });
