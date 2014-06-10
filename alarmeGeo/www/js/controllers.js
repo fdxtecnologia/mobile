@@ -1,12 +1,8 @@
 angular.module('starter.controllers', [])
 
-.controller('AlarmsCtrl', function($scope, $state, $rootScope, $location, $stateParams) {
+.controller('AlarmsCtrl', function($scope, $rootScope) {
     //*********************************************************//
-    if (angular.isDefined(window.localStorage['alarms'])) {
-        $scope.alarmsShow = angular.fromJson(window.localStorage['alarms']);
-    } else {
-        $scope.alarmsShow = undefined;
-    };
+    $scope.alarmsShow = angular.fromJson(window.localStorage['alarms']);
     // fim inicialização
     //*********************************************************//
 
@@ -15,9 +11,14 @@ angular.module('starter.controllers', [])
         this.item.checked = !checked;
         window.localStorage['alarms'] = angular.toJson($scope.alarmsShow);
     };
+
+    $rootScope.$on('alarmStatusChange', function() {
+        $scope.alarmsShow = angular.fromJson(window.localStorage['alarms']);
+        $scope.$apply();
+    });
 })
 
-.controller('AdressesCtrl', function($scope, $rootScope, $http, $state, $window) {
+.controller('AdressesCtrl', function($scope, $state) {
     $scope.items = angular.fromJson(window.localStorage["adresses"]);
     $scope.goToAdd = function() {
         $state.go('tab.adresses-add');
@@ -117,13 +118,15 @@ angular.module('starter.controllers', [])
         'title': '',
         'ad': undefined
     };
+
     $scope.list = [];
     var alarm_json = {
         'id': 0,
         'title': '',
         'adress': {},
         'note': '',
-        'checked': false
+        'checked': false,
+        'count': undefined
     };
 
     if (angular.isDefined($rootScope.input)) {
@@ -145,20 +148,21 @@ angular.module('starter.controllers', [])
         // armazenar informações do alarm no localStorage
         alarm_json.title = $scope.input.title;
         alarm_json.adress = $scope.input.ad;
+        alarm_json.count = undefined;
         alarm_json.note = document.getElementById('note').value;
         // variáveis armazenadas em alarm_json
 
         // IF titulo do alarme não estiver vazio e possuir endereço selecionado!
         if ($scope.input.title != '' && angular.isDefined($scope.input.ad)) {
-            // ŚE não existir alarme na memória
-            if (!angular.isDefined(window.localStorage['alarms'])) {
-                // Cria o primeiro elemento
+            // ŚE não indice de alarmes não estiver definido:
+            if (!angular.isDefined(window.localStorage['alarmIndex'])) {
+                // Cria o primeiro elemento com indice 0 e id 0
                 alarm_json.id = 0;
                 $scope.list = [alarm_json];
                 window.localStorage['alarmIndex'] = 0;
                 window.localStorage['alarms'] = angular.toJson($scope.list);
             } else {
-                // Incrementa index de alarmes e armazena novo alarme
+                // Incrementa index de alarmes e armazena novo alarme, alarme id = alarme index
                 window.localStorage['alarmIndex'] = parseInt(window.localStorage['alarmIndex']) + 1;
                 alarm_json.id = parseInt(window.localStorage['alarmIndex']);
                 $scope.list = angular.fromJson(window.localStorage['alarms']); //array list
@@ -192,13 +196,6 @@ angular.module('starter.controllers', [])
         };
     };
 
-    var alarm_json = {
-        'id': 0,
-        'title': '',
-        'adress': {},
-        'note': '',
-        'checked': false
-    };
     $scope.list = [];
     // fim inicialização
     // ****************************************************** //
