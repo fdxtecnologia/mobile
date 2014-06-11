@@ -218,7 +218,6 @@ angular.module('starter.controllers', [])
         for (var i = 0; i < $scope.alarms.length; i++) {
             if ($scope.alarms[i].id != $scope.id) {
                 $scope.list.push($scope.alarms[i]);
-                console.log(i);
             };
         };
         window.localStorage['alarms'] = angular.toJson($scope.list);
