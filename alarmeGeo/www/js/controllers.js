@@ -1,12 +1,8 @@
 angular.module('starter.controllers', ['ngAudio'])
 
-.controller('AlarmsCtrl', function($scope, $state, $rootScope, $location, $stateParams) {
+.controller('AlarmsCtrl', function($scope, $rootScope) {
     //*********************************************************//
-    if (angular.isDefined(window.localStorage['alarms'])) {
-        $scope.alarmsShow = angular.fromJson(window.localStorage['alarms']);
-    } else {
-        $scope.alarmsShow = undefined;
-    };
+    $scope.alarmsShow = angular.fromJson(window.localStorage['alarms']);
     // fim inicialização
     //*********************************************************//
 
@@ -15,133 +11,14 @@ angular.module('starter.controllers', ['ngAudio'])
         this.item.checked = !checked;
         window.localStorage['alarms'] = angular.toJson($scope.alarmsShow);
     };
-<<<<<<< HEAD
+
+    $rootScope.$on('alarmStatusChange', function() {
+        $scope.alarmsShow = angular.fromJson(window.localStorage['alarms']);
+        $scope.$apply();
+    });
 })
 
-.controller('AdressesCtrl', function($scope, $rootScope, $http, $state, $window) {
-    $scope.items = angular.fromJson(window.localStorage["adresses"]);
-    $scope.goToAdd = function() {
-        $state.go('tab.adresses-add');
-    };
-})
-
-.controller('NewAdressCtrl', function($scope, $ionicLoading, $http, $state, $window, $rootScope) {
-    $scope.data = {};
-    var initialize = function() {
-        var myLatlng = new google.maps.LatLng(-22.4329106, -45.4590677);
-        var mapOptions = {
-            center: myLatlng,
-            zoom: 16,
-            mapMaker: true,
-            mapTypeId: google.maps.MapTypeId.ROADMAP
-        };
-        var map = new google.maps.Map(document.getElementById("map"),
-            mapOptions);
-
-        //alert("teste: "+map);
-
-        // Stop the side bar from dragging when mousedown/tapdown on the map
-        google.maps.event.addDomListener(document.getElementById('map'), 'mousedown', function(e) {
-            e.preventDefault();
-            return false;
-        });
-
-        $scope.map = map;
-    }
-    initialize();
-    google.maps.event.addDomListener(window, 'load', initialize);
-
-    $scope.centerOnMe = function() {
-        var end = $scope.data.endereco;
-
-        $scope.geocoder = new google.maps.Geocoder();
-        //alert("Endereço: "+end);
-        $scope.geocoder.geocode({
-            'address': end
-        }, function(results, status) {
-            //alert(JSON.stringify(results[0]));
-            //alert(status);
-            if (status == google.maps.GeocoderStatus.OK) {
-                //alert("Deu certo!");
-                //alert("Latitude: "+results[0].geometry.location.lat());
-                //alert("Latitude: "+results[0].geometry.location.lng());
-                $scope.lat = results[0].geometry.location.lat();
-                $scope.lng = results[0].geometry.location.lng();
-                //alert("Scope lat: "+$scope.lat);
-                //alert("Scope lng: "+$scope.lng);
-                $scope.map.setCenter(new google.maps.LatLng($scope.lat, $scope.lng));
-                var myLatlngNew = new google.maps.LatLng($scope.lat, $scope.lng);
-                var marker = new google.maps.Marker({
-                    position: myLatlngNew,
-                    map: $scope.map,
-                    title: 'Localização Endereço'
-                });
-                //$scope.map.panTo(new GLatLng(lat,lon));
-            } else {
-                alert("Endereço não localizado: " + status);
-            }
-
-        });
-
-    }
-
-    $scope.saveAdress = function() {
-        var nomeLocal = $scope.data.nomeLocal;
-        var end = $scope.data.endereco;
-
-        $scope.userAlarm = {
-            'local': nomeLocal,
-            'end': end,
-            'lat': $scope.lat,
-            'lng': $scope.lng
-        };
-
-        alert("Alarme salvo com sucesso");
-
-        $rootScope.alarms = undefined;
-
-        $rootScope.alarms = angular.fromJson(window.localStorage["adresses"]);
-        $rootScope.alarms.push($scope.userAlarm);
-
-        window.localStorage["adresses"] = angular.toJson($rootScope.alarms);
-
-        $state.go('tab.adresses');
-
-    };
-})
-
-.controller('AccountCtrl', function($scope) {})
-
-.controller('NewAlarmCtrl', function($scope, $state, $rootScope) {
-    //*********************************************************//
-    $scope.input = {
-        'title': '',
-        'ad': undefined
-    };
-    $scope.list = [];
-    var alarm_json = {
-        'id': 0,
-        'title': '',
-        'adress': {},
-        'note': '',
-        'checked': false
-    };
-
-    if (angular.isDefined($rootScope.input)) {
-        $scope.input.title = $rootScope.input.title;
-        $scope.input.note = $rootScope.input.note;
-    } else {
-        $rootScope.input = $scope.input;
-    };
-
-    $scope.adresses = angular.fromJson(window.localStorage["adresses"]);
-    // fim inicialização de variáveis
-    //*********************************************************//
-
-=======
-})
-
-.controller('AdressesCtrl', function($scope, $rootScope, $http, $state, $window) {
+.controller('AdressesCtrl', function($scope, $state) {
     $scope.items = angular.fromJson(window.localStorage["adresses"]);
     $scope.goToAdd = function() {
         $state.go('tab.adresses-add');
@@ -252,21 +129,21 @@ angular.module('starter.controllers', ['ngAudio'])
     }
 
     $scope.playSound = function() {
-        alert("Nome som: "+$scope.data.nomeSom);
-        if($scope.data.nomeSom == "song1"){
+        alert("Nome som: " + $scope.data.nomeSom);
+        if ($scope.data.nomeSom == "song1") {
             ngAudio.stop('audio/song2.mp3');
             ngAudio.stop('audio/song3.mp3');
         }
-        if($scope.data.nomeSom == "song2"){
+        if ($scope.data.nomeSom == "song2") {
             ngAudio.stop('audio/song1.mp3');
             ngAudio.stop('audio/song3.mp3');
         }
-        if($scope.data.nomeSom == "song3"){
+        if ($scope.data.nomeSom == "song3") {
             ngAudio.stop('audio/song1.mp3');
             ngAudio.stop('audio/song2.mp3');
         }
 
-        var str = "audio/"+$scope.data.nomeSom+".mp3";
+        var str = "audio/" + $scope.data.nomeSom + ".mp3";
         alert(str);
         ngAudio.play(str);
     }
@@ -283,7 +160,8 @@ angular.module('starter.controllers', ['ngAudio'])
         'adress': {},
         'note': '',
         'alarm': '',
-        'checked': false
+        'checked': false,
+        'count': undefined
     };
 
     if (angular.isDefined($rootScope.input)) {
@@ -297,7 +175,6 @@ angular.module('starter.controllers', ['ngAudio'])
     // fim inicialização de variáveis
     //*********************************************************//
 
->>>>>>> feature/searchEnd
     $scope.$on('$destroy', function() {
         $rootScope.input = $scope.input;
     });
@@ -306,24 +183,22 @@ angular.module('starter.controllers', ['ngAudio'])
         // armazenar informações do alarm no localStorage
         alarm_json.title = $scope.input.title;
         alarm_json.adress = $scope.input.ad;
+        alarm_json.count = undefined;
         alarm_json.note = document.getElementById('note').value;
-<<<<<<< HEAD
-=======
         alarm_json.alarm = $scope.data.nomeSom;
->>>>>>> feature/searchEnd
         // variáveis armazenadas em alarm_json
 
         // IF titulo do alarme não estiver vazio e possuir endereço selecionado!
         if ($scope.input.title != '' && angular.isDefined($scope.input.ad)) {
-            // ŚE não existir alarme na memória
-            if (!angular.isDefined(window.localStorage['alarms'])) {
-                // Cria o primeiro elemento
+            // ŚE não indice de alarmes não estiver definido:
+            if (!angular.isDefined(window.localStorage['alarmIndex'])) {
+                // Cria o primeiro elemento com indice 0 e id 0
                 alarm_json.id = 0;
                 $scope.list = [alarm_json];
                 window.localStorage['alarmIndex'] = 0;
                 window.localStorage['alarms'] = angular.toJson($scope.list);
             } else {
-                // Incrementa index de alarmes e armazena novo alarme
+                // Incrementa index de alarmes e armazena novo alarme, alarme id = alarme index
                 window.localStorage['alarmIndex'] = parseInt(window.localStorage['alarmIndex']) + 1;
                 alarm_json.id = parseInt(window.localStorage['alarmIndex']);
                 $scope.list = angular.fromJson(window.localStorage['alarms']); //array list
@@ -331,10 +206,7 @@ angular.module('starter.controllers', ['ngAudio'])
                 window.localStorage['alarms'] = angular.toJson($scope.list);
             };
 
-<<<<<<< HEAD
-=======
-            ngAudio.toggleMute(['audio/song1.mp3','audio/song2.mp3','audio/song3.mp3']);
->>>>>>> feature/searchEnd
+            ngAudio.toggleMute(['audio/song1.mp3', 'audio/song2.mp3', 'audio/song3.mp3']);
             $scope.input = undefined;
             $state.go('tab.alarms');
         } else {
@@ -345,8 +217,6 @@ angular.module('starter.controllers', ['ngAudio'])
 
 .controller('EditAlarmCtrl', function($scope, $state, $rootScope, $stateParams, $location) {
     // ****************************************************** //
-<<<<<<< HEAD
-=======
     $scope.data = {};
     $scope.muting = false;
     $scope.toggleMuteAll = function() {
@@ -363,19 +233,17 @@ angular.module('starter.controllers', ['ngAudio'])
     }
 
     $scope.playSound = function() {
-        if($scope.data.nomeSom == "song1"){
-            ngAudio.toggleMute(['audio/song2.mp3','audio/song3.mp3']);
-        }else if($scope.data.nomeSom == "song2"){
-            ngAudio.toggleMute(['audio/song1.mp3','audio/song3.mp3']);
-        }else{
-            ngAudio.toggleMute(['audio/song1.mp3','audio/song2.mp3']);
+        if ($scope.data.nomeSom == "song1") {
+            ngAudio.toggleMute(['audio/song2.mp3', 'audio/song3.mp3']);
+        } else if ($scope.data.nomeSom == "song2") {
+            ngAudio.toggleMute(['audio/song1.mp3', 'audio/song3.mp3']);
+        } else {
+            ngAudio.toggleMute(['audio/song1.mp3', 'audio/song2.mp3']);
         }
-        var str = "audio/"+$scope.data.nomeSom+".mp3";
+        var str = "audio/" + $scope.data.nomeSom + ".mp3";
         ngAudio.play(str);
     };
 
-
->>>>>>> feature/searchEnd
     $scope.id = $stateParams.itemId;
     $scope.adresses = angular.fromJson(window.localStorage['adresses']);
     $scope.alarms = angular.fromJson(window.localStorage['alarms']);
@@ -397,10 +265,7 @@ angular.module('starter.controllers', ['ngAudio'])
         'title': '',
         'adress': {},
         'note': '',
-<<<<<<< HEAD
-=======
         'alarm': '',
->>>>>>> feature/searchEnd
         'checked': false
     };
     $scope.list = [];
@@ -415,10 +280,7 @@ angular.module('starter.controllers', ['ngAudio'])
                     $scope.alarms[i].adress = $scope.input.ad;
                 };
                 $scope.alarms[i].title = $scope.input.title;
-<<<<<<< HEAD
-=======
                 $scope.alarms[i].alarm = $scope.data.nomeSom;
->>>>>>> feature/searchEnd
                 window.localStorage['alarms'] = angular.toJson($scope.alarms);
             };
         };
@@ -429,7 +291,6 @@ angular.module('starter.controllers', ['ngAudio'])
         for (var i = 0; i < $scope.alarms.length; i++) {
             if ($scope.alarms[i].id != $scope.id) {
                 $scope.list.push($scope.alarms[i]);
-                console.log(i);
             };
         };
         window.localStorage['alarms'] = angular.toJson($scope.list);
