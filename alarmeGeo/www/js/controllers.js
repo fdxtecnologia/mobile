@@ -96,7 +96,7 @@ angular.module('starter.controllers', ['ngAudio'])
             'lng': $scope.lng
         };
 
-        alert("Alarme salvo com sucesso");
+        alert("Endereço salvo com sucesso.");
 
         $rootScope.alarms = undefined;
 
@@ -110,45 +110,8 @@ angular.module('starter.controllers', ['ngAudio'])
     };
 })
 
-.controller('AccountCtrl', function($scope) {})
-
 .controller('NewAlarmCtrl', function($scope, $state, $rootScope, ngAudio) {
     $scope.data = {};
-    $scope.muting = false;
-    $scope.toggleMuteAll = function() {
-        ngAudio.toggleMuteAll();
-        $scope.muting = !$scope.muting;
-    };
-
-    $scope.toggleMuteAllSongs = function() {
-        ngAudio.toggleMuteAllSongs();
-    }
-
-    $scope.toggleMute = function(str) {
-        ngAudio.toggleMute(str);
-    }
-
-    $scope.playSound = function() {
-        alert("Nome som: " + $scope.data.nomeSom);
-        if ($scope.data.nomeSom == "song1") {
-            ngAudio.stop('audio/song2.mp3');
-            ngAudio.stop('audio/song3.mp3');
-        }
-        if ($scope.data.nomeSom == "song2") {
-            ngAudio.stop('audio/song1.mp3');
-            ngAudio.stop('audio/song3.mp3');
-        }
-        if ($scope.data.nomeSom == "song3") {
-            ngAudio.stop('audio/song1.mp3');
-            ngAudio.stop('audio/song2.mp3');
-        }
-
-        var str = "audio/" + $scope.data.nomeSom + ".mp3";
-        alert(str);
-        ngAudio.play(str);
-    }
-
-    //*********************************************************//
     $scope.input = {
         'title': '',
         'ad': undefined
@@ -206,7 +169,7 @@ angular.module('starter.controllers', ['ngAudio'])
                 window.localStorage['alarms'] = angular.toJson($scope.list);
             };
 
-            ngAudio.toggleMute(['audio/song1.mp3', 'audio/song2.mp3', 'audio/song3.mp3']);
+            //ngAudio.toggleMute(['audio/song1.mp3', 'audio/song2.mp3', 'audio/song3.mp3']);
             $scope.input = undefined;
             $state.go('tab.alarms');
         } else {
@@ -218,31 +181,6 @@ angular.module('starter.controllers', ['ngAudio'])
 .controller('EditAlarmCtrl', function($scope, $state, $rootScope, $stateParams, $location) {
     // ****************************************************** //
     $scope.data = {};
-    $scope.muting = false;
-    $scope.toggleMuteAll = function() {
-        ngAudio.toggleMuteAll();
-        $scope.muting = !$scope.muting;
-    };
-
-    $scope.toggleMuteAllSongs = function() {
-        ngAudio.toggleMuteAllSongs();
-    }
-
-    $scope.toggleMute = function(str) {
-        ngAudio.toggleMute(str);
-    }
-
-    $scope.playSound = function() {
-        if ($scope.data.nomeSom == "song1") {
-            ngAudio.toggleMute(['audio/song2.mp3', 'audio/song3.mp3']);
-        } else if ($scope.data.nomeSom == "song2") {
-            ngAudio.toggleMute(['audio/song1.mp3', 'audio/song3.mp3']);
-        } else {
-            ngAudio.toggleMute(['audio/song1.mp3', 'audio/song2.mp3']);
-        }
-        var str = "audio/" + $scope.data.nomeSom + ".mp3";
-        ngAudio.play(str);
-    };
 
     $scope.id = $stateParams.itemId;
     $scope.adresses = angular.fromJson(window.localStorage['adresses']);

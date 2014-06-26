@@ -97,10 +97,15 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
             // routine to display notification and play the alarm song.
             for (var i = 0; i < alarms.length; i++) {
                 if (alarms[i].id === toPlayAlarmID) {
-                    console.log('________________________________________________________________');
-                    console.log('****************__ BU!: ' + toPlayAlarmID + ' __****************');
-                    console.log('________________________________________________________________');
-                    console.log('**** ___________ Aviso: ' + alarms[i].note + ' ___________ ****');
+                      window.plugin.notification.local.add({
+                            id:      1,
+                            title:   alarms[i].title,
+                            message: alarms[i].note,
+                            autoCancel: true,
+                            repeat: 'hourly'
+                        });
+
+                        navigator.notification.vibrate(2500);
 
                     // Clear alarm counter
                     alarms[i].count = undefined;
