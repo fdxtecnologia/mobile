@@ -1,12 +1,14 @@
 <!-- adresses.html -->
-<ion-view title="Addresses">
-	<ion-content class="has-header" data-ng-init="loadEnds()">
-		<div ng-repeat="item in items">
-			Nome: {{item.local}}<br />
-			Endereço: {{item.end}}<br /><br />
-		</div>
-		<button class="button button-block button-positive" ng-click="goToAdd()">
-	 		New Adress
-		</button>
-	</ion-content>
+<ion-view title="Endereços">
+    <ion-content class="has-header" data-ng-init="loadEnds()">
+        <div class="list card">
+            <div class="item item-text-wrap" ng-repeat="item in items">
+                Nome: {{item.local}}
+                <br/>Endereço: {{item.end}}
+            </div>
+        </div>
+        <button class="button button-block button-light" ng-click="goToAdd()">
+            Novo Endereço
+        </button>
+    </ion-content>
 </ion-view>

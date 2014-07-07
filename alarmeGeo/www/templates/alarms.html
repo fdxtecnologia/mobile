@@ -1,22 +1,19 @@
 <!-- alarms.html -->
-<ion-view title="Alarms">
+<ion-view title="Alarmes">
 	<ion-content class="has-header">
 		<div class="card">
 			<a href="#/tab/alarms/new">
 				<button class="button button-block button-light">
-					New Alarm
+					Novo Alarme
 				</button>
 			</a>
 		</div>
 		<div class="row list" ng-repeat="item in alarmsShow">
-			<a class="col col-10 item" href="" ng-href="#/tab/alarms/{{item.id}}"><span class="ion-ios7-alarm-outline" style="vertical-align: middle;"></span></a>
+			<a class="col col-10 item" style="text-align: center; padding-top: 20px;" href="" ng-href="#/tab/alarms/{{item.id}}"><span class="ion-ios7-alarm-outline"></span></a>
 			<ion-toggle class="col" ng-model="item.checked" ng-init="item.checked" ng-change="changeStatus(item.checked)" toggle-class="toggle-calm"> 
 				<h2>{{ item.title }}</h2>
 				<p>{{ item.adress.local }}</p>
-<<<<<<< HEAD
-=======
 				<p>{{ item.alarm }}</p>
->>>>>>> feature/searchEnd
 			</ion-toggle>
 		</div>
 	</ion-content>

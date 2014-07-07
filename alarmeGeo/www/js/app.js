@@ -7,22 +7,39 @@
 // 'starter.controllers' is found in controllers.js
 angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
 
-.run(function($ionicPlatform, $interval) {
+.run(function($ionicPlatform, $rootScope) {
     $ionicPlatform.ready(function() {
         // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
         // for form inputs)
 
         var watchID;
         var watchIDControl;
-        var count = 0;
-        var lastLocation = window.localStorage["Location"];
+        var flag = false;
 
-        window.navigator.geolocation.getCurrentPosition(function(location) {});
+        if (!angular.isDefined(count)) {
+            var count = 0;
+        };
+
+        if (!angular.isDefined(window.localStorage["Location"])) {
+            window.localStorage["Location"] = angular.toJson([]);
+        };
+
+        var lastLocation = angular.fromJson(window.localStorage["Location"]);
+
         if (!angular.isDefined(window.localStorage["adresses"])) {
             window.localStorage["adresses"] = angular.toJson([]);
         };
 
-        function measure(lat1, lon1, lat2, lon2) { // generally used geo measurement function
+        var alarms;
+
+        if (!angular.isDefined(window.localStorage["alarms"])) {
+            window.localStorage["alarms"] = angular.toJson([]);
+        };
+        alarms = angular.fromJson(window.localStorage["alarms"]);
+
+        window.navigator.geolocation.getCurrentPosition(function(location) {});
+
+        function measure(lat1, lon1, lat2, lon2) { // generally used geo measurement function 
             var R = 6378.137; // Radius of earth in KM
             var dLat = (lat2 - lat1) * Math.PI / 180;
             var dLon = (lon2 - lon1) * Math.PI / 180;
@@ -32,11 +49,13 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
             var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
             var d = R * c;
             return d * 1000; // meters
-        }
+        };
 
         var onWatch = function(location) {
             console.log("[FG] Latitude: " + location.coords.latitude + "Longitude: " + location.coords.longitude);
+            alarms = angular.fromJson(window.localStorage["alarms"]);
 
+            /*
             lastLocation = angular.fromJson(window.localStorage["Location"]);
 
             if (lastLocation === undefined) {
@@ -45,10 +64,60 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
                     longitude: location.coords.longitude
                 });
             } else {
-
                 var distance = measure(lastLocation.latitude, lastLocation.longitude, location.coords.latitude, location.coords.longitude);
-
             }
+            */
+            for (var i = 0; i < alarms.length; i++) {
+                // IF there is an active alarm and it is at 60 meters from the desired place
+                if ((alarms[i].checked == true) && (measure(location.coords.latitude, location.coords.longitude, alarms[i].adress.lat, alarms[i].adress.lng) < 60)) {
+                    if (alarms[i].count == undefined) {
+                        alarms[i].count = 1;
+                    } else {
+                        alarms[i].count = parseInt(alarms[i].count) + 1;
+                    };
+
+                    // Update Alarms counter at localStorage
+                    window.localStorage['alarms'] = angular.toJson(alarms);
+
+                    // After 4 onWatch loops with the alarm at the correct place 
+                    if (alarms[i].count == 4) {
+                        // CALL playAlarm function
+                        playAlarm(alarms[i].id);
+                    };
+                } else {
+                    alarms[i].count = undefined;
+                    // Update Alarms counter at localStorage
+                    window.localStorage['alarms'] = angular.toJson(alarms);
+                };
+            };
+
+        };
+
+        var playAlarm = function(toPlayAlarmID) {
+            // routine to display notification and play the alarm song.
+            for (var i = 0; i < alarms.length; i++) {
+                if (alarms[i].id === toPlayAlarmID) {
+                      window.plugin.notification.local.add({
+                            id:      1,
+                            title:   alarms[i].title,
+                            message: alarms[i].note,
+                            autoCancel: true,
+                            repeat: 'hourly'
+                        });
+
+                        navigator.notification.vibrate(2500);
+
+                    // Clear alarm counter
+                    alarms[i].count = undefined;
+                    // Disable alarm
+                    alarms[i].checked = false;
+                    // Update Alarm counter and status at localStorage
+                    window.localStorage['alarms'] = angular.toJson(alarms);
+                };
+            };
+
+            //Broadcast event to update changes to Alarms View
+            $rootScope.$broadcast('alarmStatusChange', '');
         };
 
         var onErrorWatch = function(error) {
@@ -56,14 +125,14 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
             watchID = undefined;
             watchID = window.navigator.geolocation.watchPosition(onWatch, onErrorWatch, {
                 maximumAge: 3000,
-                timeout: 40000,
+                timeout: 5000,
                 enableHighAccuracy: true
             });
         };
 
         watchID = window.navigator.geolocation.watchPosition(onWatch, onErrorWatch, {
             maximumAge: 3000,
-            timeout: 40000,
+            timeout: 5000,
             enableHighAccuracy: true
         });
 
@@ -87,6 +156,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
             StatusBar.styleDefault();
         }
     });
+
 })
 
 .config(function($stateProvider, $urlRouterProvider) {
