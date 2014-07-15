@@ -2,12 +2,8 @@
 
 var mongoose = require('mongoose'),
     LocalStrategy = require('passport-local').Strategy,
-    TwitterStrategy = require('passport-twitter').Strategy,
-    FacebookStrategy = require('passport-facebook').Strategy,
-    GitHubStrategy = require('passport-github').Strategy,
-    GoogleStrategy = require('passport-google-oauth').OAuth2Strategy,
-    LinkedinStrategy = require('passport-linkedin').Strategy,
-    User = mongoose.model('User'),
+    User = mongoose.model('Donor'),
+    Hospital = mongoose.model('Hospital'),
     config = require('./config');
 
 module.exports = function(passport) {
@@ -17,190 +13,80 @@ module.exports = function(passport) {
         done(null, user.id);
     });
 
-    // Deserialize the user object based on a pre-serialized token
-    // which is the user id
+    // Deserialize the object based on a pre-serialized token
+    // which is the id
     passport.deserializeUser(function(id, done) {
         User.findOne({
             _id: id
         }, '-salt -hashed_password', function(err, user) {
-            done(err, user);
+            if (err) done(err);
+            if (user) {
+                done(null, user);
+            } else {
+                Hospital.findOne({
+                    _id: id
+                }, '-salt -hashed_password', function(err, user) {
+                    done(null, user);
+                });
+            }
         });
     });
 
-    // Use local strategy
-    passport.use(new LocalStrategy({
+    // Use donor-local strategy
+    passport.use('donor', new LocalStrategy({
             usernameField: 'email',
             passwordField: 'password'
         },
         function(email, password, done) {
             User.findOne({
                 email: email
-            }, function(err, user) {
+            }, function(err, donor) {
+                console.log('donor strategy reached');
                 if (err) {
                     return done(err);
                 }
-                if (!user) {
+                if (!donor) {
                     return done(null, false, {
-                        message: 'Unknown user'
+                        message: 'Unknown donor'
                     });
                 }
-                if (!user.authenticate(password)) {
+                if (!donor.authenticate(password)) {
                     return done(null, false, {
                         message: 'Invalid password'
                     });
                 }
-                return done(null, user);
+                return done(null, donor);
             });
         }
     ));
 
-    // Use twitter strategy
-    passport.use(new TwitterStrategy({
-            consumerKey: config.twitter.clientID,
-            consumerSecret: config.twitter.clientSecret,
-            callbackURL: config.twitter.callbackURL
+    // Use hospital-local strategy
+    passport.use('hospital', new LocalStrategy({
+            usernameField: 'email',
+            passwordField: 'password'
         },
-        function(token, tokenSecret, profile, done) {
-            User.findOne({
-                'twitter.id_str': profile.id
-            }, function(err, user) {
+        function(email, password, done) {
+            // body...
+            console.log('hospital strategy reached');
+            Hospital.findOne({
+                email: email
+            }, function(err, hospital) {
+                // body...
                 if (err) {
                     return done(err);
                 }
-                if (user) {
-                    return done(err, user);
+                if (!hospital) {
+                    return done(null, false, {
+                        message: 'Unknown Hospital'
+                    });
                 }
-                user = new User({
-                    name: profile.displayName,
-                    username: profile.username,
-                    provider: 'twitter',
-                    twitter: profile._json,
-                    roles: ['authenticated']
-                });
-                user.save(function(err) {
-                    if (err) console.log(err);
-                    return done(err, user);
-                });
-            });
-        }
-    ));
-
-    // Use facebook strategy
-    passport.use(new FacebookStrategy({
-            clientID: config.facebook.clientID,
-            clientSecret: config.facebook.clientSecret,
-            callbackURL: config.facebook.callbackURL
-        },
-        function(accessToken, refreshToken, profile, done) {
-            User.findOne({
-                'facebook.id': profile.id
-            }, function(err, user) {
-                if (err) {
-                    return done(err);
+                if (!hospital.authenticate(password)) {
+                    return done(null, false, {
+                        message: 'Invalid password'
+                    });
                 }
-                if (user) {
-                    return done(err, user);
-                }
-                user = new User({
-                    name: profile.displayName,
-                    email: profile.emails[0].value,
-                    username: profile.username || profile.emails[0].value.split('@')[0],
-                    provider: 'facebook',
-                    facebook: profile._json,
-                    roles: ['authenticated']
-                });
-                user.save(function(err) {
-                    if (err) console.log(err);
-                    return done(err, user);
-                });
-            });
-        }
-    ));
-
-    // Use github strategy
-    passport.use(new GitHubStrategy({
-            clientID: config.github.clientID,
-            clientSecret: config.github.clientSecret,
-            callbackURL: config.github.callbackURL
-        },
-        function(accessToken, refreshToken, profile, done) {
-            User.findOne({
-                'github.id': profile.id
-            }, function(err, user) {
-                if (user) {
-                    return done(err, user);
-                }
-                user = new User({
-                    name: profile.displayName,
-                    email: profile.emails[0].value,
-                    username: profile.username,
-                    provider: 'github',
-                    github: profile._json,
-                    roles: ['authenticated']
-                });
-                user.save(function(err) {
-                    if (err) console.log(err);
-                    return done(err, user);
-                });
-            });
-        }
-    ));
-
-    // Use google strategy
-    passport.use(new GoogleStrategy({
-            clientID: config.google.clientID,
-            clientSecret: config.google.clientSecret,
-            callbackURL: config.google.callbackURL
-        },
-        function(accessToken, refreshToken, profile, done) {
-            User.findOne({
-                'google.id': profile.id
-            }, function(err, user) {
-                if (user) {
-                    return done(err, user);
-                }
-                user = new User({
-                    name: profile.displayName,
-                    email: profile.emails[0].value,
-                    username: profile.emails[0].value,
-                    provider: 'google',
-                    google: profile._json,
-                    roles: ['authenticated']
-                });
-                user.save(function(err) {
-                    if (err) console.log(err);
-                    return done(err, user);
-                });
-            });
-        }
-    ));
-
-    // use linkedin strategy
-    passport.use(new LinkedinStrategy({
-            consumerKey: config.linkedin.clientID,
-            consumerSecret: config.linkedin.clientSecret,
-            callbackURL: config.linkedin.callbackURL,
-            profileFields: ['id', 'first-name', 'last-name', 'email-address']
-        },
-        function(accessToken, refreshToken, profile, done) {
-            User.findOne({
-                'linkedin.id': profile.id
-            }, function(err, user) {
-                if (user) {
-                    return done(err, user);
-                }
-                user = new User({
-                    name: profile.displayName,
-                    email: profile.emails[0].value,
-                    username: profile.emails[0].value,
-                    provider: 'linkedin',
-                    roles: ['authenticated']
-                });
-                user.save(function(err) {
-                    if (err) console.log(err);
-                    return done(err, user);
-                });
-            });
+                return done(null, hospital);
+            })
         }
     ));
 };

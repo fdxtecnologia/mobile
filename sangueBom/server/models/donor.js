@@ -1,67 +1,76 @@
 'use strict';
 
-/*
-*=== Definitions
-*/
-var mongoose = require('mongoose');
-var Schema = mongoose.Schema;
-var crypto = require('crypto');
+/**
+ * Module dependencies.
+ */
+var mongoose = require('mongoose'),
+    Schema = mongoose.Schema,
+    crypto = require('crypto');
 
-/*
-*=== Donor Schema
-*/
+/**
+ * Validations
+ */
+
+/**
+ * Donor Schema
+ */
 var DonorSchema = new Schema({
-	name:{
-		type: String,
-		required: true
-	},
-	email:{
-		type: String,
-		required: true,
-		unique: true,
+    name: {
+        type: String,
+        required: true
+    },
+    email: {
+        type: String,
+        required: true,
+        unique: true,
         match: [/.+\@.+\..+/, 'Please enter a valid email']
-	},
-	username:{
-		type: String,
-		unique:true,
-		required:true
-	},
-	hashed_password:{
-		type: String,
-		required:true
-	},
+    },
+    username: {
+        type: String,
+        unique: true,
+        required: true
+    },
+    hashed_password: {
+        type: String,
+        required: true
+    },
+    role: {
+        type: String,
+        default: 'donor'
+    },
+    /*
 	phoneFix:{
 		type: String,
-		required: true
+		required: false
 	},
 	phoneMobile:{
 		type: String,
-		required: true
+		required: false
 	},
 	latitude:{
 		type: Number,
-		required: true
+		required: false
 	},
 	longitude:{
 		type: Number,
-		required: true
+		required: false
 	},
 	birthDate: {
 		type: Date,
-		required: true
+		required: false
 	},
 	weight:{
 		type: Number,
-		required: true
+		required: false
 	},
 	gender:{
 		type: String,
-		required: true,
+		required: false,
 		enum: ['F','M']
 	},
 	hadHepatite:{
 		type: String,
-		required: true,
+		required: false,
 		enum: ['Sim','Não']
 	},
 	ageHepatite:{
@@ -70,79 +79,108 @@ var DonorSchema = new Schema({
 	},
 	contactWChagas:{
 		type: String,
-		required: true,
+		required: false,
 		enum: ['Sim','Não']
 	},
 	hadMalaria:{
 		type: String,
-		required: true,
+		required: false,
 		enum: ['Sim','Não']
 	},
 	hasEpilepsia:{
 		type: String,
-		required: true,
+		required: false,
 		enum: ['Sim','Não']
 	},
 	hasSiflis:{
 		type: String,
-		required: true,
+		required: false,
 		enum: ['Sim','Não']
 	},
 	hasDiabetes:{
 		type: String,
-		required: true,
+		required: false,
 		enum: ['Sim','Não']
 	},
 	hasRecentTattos:{
 		type: String,
-		required: true,
+		required: false,
 		enum: ['Sim','Não']
 	},
 	hasRecentTransfusion:{
 		type: String,
-		required: true,
+		required: false,
 		enum: ['Sim','Não']
 	},
 	hasAIDS:{
 		type: String,
-		required: true,
+		required: false,
 		enum: ['Sim','Não','Não Sei']
 	},
 	bloodType:{
 		type: String,
-		required: true,
+		required: false,
 		enum: ['A+','A-','B+','B-','AB+','AB-','O+','O-']
+	},*/
+	active: {
+		type: Boolean,
+		required: true,
+		enum: [0,1],
+		default: 1
 	},
-	salt: String
+    salt: String
 });
 
-/*
-*=== Virtuals
-*/
-DonorSchema.virtual('password').set(function(password){
-	this._password = password;
-	this.salt = this.makeSalt();
-	this.hashed_password = this.hashPassword(password);
-}).get(function(){
-	return this._password;
+/**
+ * Virtuals
+ */
+DonorSchema.virtual('password').set(function(password) {
+    this._password = password;
+    this.salt = this.makeSalt();
+    this.hashed_password = this.hashPassword(password);
+}).get(function() {
+    return this._password;
 });
 
-/*
-*=== Methods
-*/
+
+/**
+ * Methods
+ */
 DonorSchema.methods = {
 
-	/* Make Salt Key */
-	makeSalt: function(){
-		return crypto.randomBytes(16).toString('base64');
-	},
+    /**
+     * Authenticate - check if the passwords are the same
+     *
+     * @param {String} plainText
+     * @return {Boolean}
+     * @api public
+     */
+    authenticate: function(plainText) {
+        return this.hashPassword(plainText) === this.hashed_password;
+    },
 
-	/* Hash Password */
-	hashPassword: function(password){
-		if (!password || !this.salt) return '';
+    /**
+     * Make salt
+     *
+     * @return {String}
+     * @api public
+     */
+    makeSalt: function() {
+        return crypto.randomBytes(16).toString('base64');
+    },
+
+    /**
+     * Hash password
+     *
+     * @param {String} password
+     * @return {String}
+     * @api public
+     */
+    hashPassword: function(password) {
+        if (!password || !this.salt) return '';
         var salt = new Buffer(this.salt, 'base64');
         return crypto.pbkdf2Sync(password, salt, 10000, 64).toString('base64');
-	}
+    }
 };
 
 mongoose.model('Donor', DonorSchema);

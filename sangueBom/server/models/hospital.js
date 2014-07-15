@@ -1,41 +1,45 @@
 'use strict';
 
-/*
-	Definitions
-*/
-var mongoose = require('mongoose');
-var Schema = mongoose.Schema;
-var crypto = require('crypto');
+/**
+ * Module dependencies.
+ */
+var mongoose = require('mongoose'),
+	Schema = mongoose.Schema,
+	crypto = require('crypto');
 
-/*
-	Validations
-*/
+/**
+ * Validations
+ */
 
-/*
-	Hospital Schema -- Atributos!
-*/
+/**
+ * Donor Schema
+ */
 var HospitalSchema = new Schema({
-
-	name:{
+	name: {
 		type: String,
 		required: true
 	},
-	username:{
+	email: {
 		type: String,
+		required: true,
 		unique: true,
-		required: true
+        match: [/.+\@.+\..+/, 'Please enter a valid email']
 	},
 	hashed_password: {
         type: String,
         required: true
     },
+    role: {
+    	type: String,
+    	default: 'hospital'
+    },
 	cnpj:{
 		type: String,
-		required: true
+		required: false
 	},
 	phone1:{
 		type: String,
-		required: true
+		required: false
 	},
 	phone2:{
 		type: String,
@@ -47,47 +51,70 @@ var HospitalSchema = new Schema({
 	},
 	latitude:{
 		type: Number,
-		required: true
+		required: false
 	},
 	longitude:{
 		type: Number,
-		required: true
+		required: false
+	},
+	active: {
+		type: Boolean,
+		required: true,
+		enum: [0,1],
+		default: 1
 	},
 	salt: String
 });
 
-/*
-	Virtuals
-*/
-HospitalSchema.virtual('password').set(function(password){
+/**
+ * Virtuals
+ */
+HospitalSchema.virtual('password').set(function(password) {
 	this._password = password;
 	this.salt = this.makeSalt();
 	this.hashed_password = this.hashPassword(password);
-}).get(function(){
+}).get(function() {
 	return this._password;
 });
 
-/*
-	Methods
-*/
+/**
+ * Methods
+ */
 HospitalSchema.methods = {
 
-	/*
-		Make crypto key called Salt
-	*/
-	makeSalt: function(){
-		return crypto.randomBytes(16).toString('base64');
-	},
+    /**
+     * Authenticate - check if the passwords are the same
+     *
+     * @param {String} plainText
+     * @return {Boolean}
+     * @api public
+     */
+    authenticate: function(plainText) {
+        return this.hashPassword(plainText) === this.hashed_password;
+    },
 
-	/*
-		Hash Password
-	*/
-	hashPassword: function(password){
-		if (!password || !this.salt) return '';
+    /**
+     * Make salt
+     *
+     * @return {String}
+     * @api public
+     */
+    makeSalt: function() {
+        return crypto.randomBytes(16).toString('base64');
+    },
+
+    /**
+     * Hash password
+     *
+     * @param {String} password
+     * @return {String}
+     * @api public
+     */
+    hashPassword: function(password) {
+        if (!password || !this.salt) return '';
         var salt = new Buffer(this.salt, 'base64');
         return crypto.pbkdf2Sync(password, salt, 10000, 64).toString('base64');
-	}
-
+    }
 };
 
 mongoose.model('Hospital', HospitalSchema);

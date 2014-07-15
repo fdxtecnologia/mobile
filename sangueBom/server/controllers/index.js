@@ -16,16 +16,16 @@ exports.render = function(req, res) {
     }
 
     function isAdmin() {
-        return req.user && req.user.roles.indexOf('admin') !== -1;
+        return req.donor && req.donor.roles.indexOf('admin') !== -1;
     }
 
     // Send some basic starting info to the view
     res.render('index', {
-        user: req.user ? {
-            name: req.user.name,
-            _id: req.user._id,
-            username: req.user.username,
-            roles: req.user.roles
+        donor: req.donor ? {
+            name: req.donor.name,
+            _id: req.donor._id,
+            donorname: req.donor.donorname,
+            roles: req.donor.roles
         } : {},
         modules: modules,
         isAdmin: isAdmin,

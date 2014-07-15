@@ -1,10 +1,10 @@
-'use strict';
+'use strict'
 
 /**
  * Dependencies
  */
 var mongoose = require('mongoose'),
-    Donor = mongoose.model('Donor'),
+    Hospital = mongoose.model('Hospital'),
     ObjectId = require('mongoose').Types.ObjectId;
 
 /**
@@ -40,44 +40,23 @@ exports.session = function(req, res) {
 };
 
 /**
- * Create donor
+ * Create hospital
  */
 exports.create = function(req, res, next) {
 
-    var donor = new Donor(req.body);
+    var hospital = new Hospital(req.body);
 
     req.assert('name', 'You must enter a name').notEmpty();
     req.assert('email', 'You must enter a valid email address').isEmail();
     req.assert('password', 'Password must be between 8-20 characters long').len(8, 20);
-    req.assert('username', 'Username cannot be more than 20 characters').len(1, 20);
     req.assert('confirmPassword', 'Passwords do not match').equals(req.body.password);
-
-    /*
-    req.assert('phoneFix', 'You must enter a fix phone number').notEmpty();
-    req.assert('phoneMobile','you must enter a mobile phone number').notEmpty();
-    req.assert('latitude','You must enter a valid latitude').notEmpty();
-    req.assert('longitude','You must enter a valid longitude').notEmpty();
-    req.assert('birthDate', 'You must enter a valid birth date').notEmpty();
-    req.assert('weight', 'You must enter your weight').notEmpty();
-    req.assert('gender', 'You must enter a gender').notEmpty();
-    req.assert('hadHepatite', 'You must enter if you had Hepatite').notEmpty();
-    req.assert('contactWChagas', 'You must enter if you had contact with Chagas Bug').notEmpty();
-    req.assert('hadMalaria', 'You must enter if you had malaria').notEmpty();
-    req.assert('hasEpilepsia', 'You must enter if you have malaria').notEmpty();
-    req.assert('hasSiflis', 'You must enter if you have Sifilis').notEmpty();
-    req.assert('hasDiabetes', 'You must enter if you have Diabetes').notEmpty();
-    req.assert('hasRecentTattos', 'You must enter if you have recent tattoos').notEmpty();
-    req.assert('hasRecentTransfusion', 'You must enter if you have recent blood transfusion').notEmpty();
-    req.assert('hasAIDS', 'You must enter if you have AIDS Virus').notEmpty();
-    req.assert('bloodType', 'You must enter your blood type').notEmpty();
-    */
 
     var errors = req.validationErrors();
     if (errors) {
         return res.status(400).send(errors);
     }
 
-    donor.save(function(err) {
+    hospital.save(function(err) {
         if (err) {
             switch (err.code) {
                 case 11000:
@@ -97,35 +76,38 @@ exports.create = function(req, res, next) {
 };
 
 /**
- * Send Donor
+ * Send hospital
  */
 exports.me = function(req, res) {
-    res.jsonp(req.donor || null);
+    res.jsonp(req.hospital || null);
 };
 
 /**
- * Find donor by id
+ * Find hospital by id
  */
-exports.donor = function(req, res, next, id) {
-    Donor
+exports.hospital = function(req, res, next, id) {
+    Hospital
         .findOne({
             _id: id
         })
-        .exec(function(err, donor) {
+        .exec(function(err, hospital) {
             if (err) return next(err);
-            if (!donor) return next(new Error('Failed to load User ' + id));
-            req.profile = donor;
+            if (!hospital) return next(new Error('Failed to load User ' + id));
+            req.profile = hospital;
             next();
         });
 };
 
+/**
+ * Update Hospital Informations
+ */
 exports.update = function(req, res) {
     if (req.isAuthenticated()) {
-        Donor.update({
+        Hospital.update({
             _id: req.user.id
         }, {
             $set: req.body
-        }, function(err, donor) {
+        }, function(err, hospital) {
             if (err) return res.send(err);
             res.send(200, 'User Updated');
         });
@@ -134,19 +116,22 @@ exports.update = function(req, res) {
     };
 };
 
+/**
+ * Set Hospital Active status to false ("removed" from database)
+ */
 exports.remove = function(req, res) {
     if (req.isAuthenticated()) {
-        Donor.update({
+        Hospital.update({
             _id: req.user.id
         }, {
             $set: {
                 active: false
             }
-        }, function(err, donor) {
+        }, function(err, hospital) {
             if (err) return res.send(err);
             res.send(200, 'User Removed');
         });
     } else {
         return res.send(401, 'User Not Authorized');
-    }
+    };
 };
