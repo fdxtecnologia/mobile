@@ -35,7 +35,7 @@ module.exports = function(app, passport) {
         }), function(req, res) {
             console.log('donor strategy reached in routes');
             res.send({
-                donor: req.donor,
+                donor: req.user,
                 //redirect: (req.donor.roles.indexOf('admin') !== -1) ? req.get('referer') : false
             });
         });

@@ -35,7 +35,7 @@ var HospitalSchema = new Schema({
     },
 	cnpj:{
 		type: String,
-		required: false
+		required: true
 	},
 	phone1:{
 		type: String,

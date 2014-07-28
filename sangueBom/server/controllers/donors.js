@@ -53,6 +53,7 @@ exports.create = function(req, res, next) {
     req.assert('confirmPassword', 'Passwords do not match').equals(req.body.password);
 
     /*
+    
     req.assert('phoneFix', 'You must enter a fix phone number').notEmpty();
     req.assert('phoneMobile','you must enter a mobile phone number').notEmpty();
     req.assert('latitude','You must enter a valid latitude').notEmpty();
@@ -70,6 +71,7 @@ exports.create = function(req, res, next) {
     req.assert('hasRecentTransfusion', 'You must enter if you have recent blood transfusion').notEmpty();
     req.assert('hasAIDS', 'You must enter if you have AIDS Virus').notEmpty();
     req.assert('bloodType', 'You must enter your blood type').notEmpty();
+
     */
 
     var errors = req.validationErrors();
@@ -91,7 +93,8 @@ exports.create = function(req, res, next) {
             }
             return res.status(400);
         }
-        res.status(200);
+
+        res.status(200).send();
     });
 
 };
@@ -127,7 +130,7 @@ exports.update = function(req, res) {
             $set: req.body
         }, function(err, donor) {
             if (err) return res.send(err);
-            res.send(200, 'User Updated');
+            res.send(202, 'User Updated');
         });
     } else {
         return res.send(401, 'User Not Authorized');
@@ -144,7 +147,7 @@ exports.remove = function(req, res) {
             }
         }, function(err, donor) {
             if (err) return res.send(err);
-            res.send(200, 'User Removed');
+            res.send(202, 'User Removed');
         });
     } else {
         return res.send(401, 'User Not Authorized');

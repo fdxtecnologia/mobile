@@ -38,96 +38,95 @@ var DonorSchema = new Schema({
         type: String,
         default: 'donor'
     },
-    /*
-	phoneFix:{
-		type: String,
-		required: false
-	},
-	phoneMobile:{
-		type: String,
-		required: false
-	},
-	latitude:{
-		type: Number,
-		required: false
-	},
-	longitude:{
-		type: Number,
-		required: false
-	},
-	birthDate: {
-		type: Date,
-		required: false
-	},
-	weight:{
-		type: Number,
-		required: false
-	},
-	gender:{
-		type: String,
-		required: false,
-		enum: ['F','M']
-	},
-	hadHepatite:{
-		type: String,
-		required: false,
-		enum: ['Sim','Não']
-	},
-	ageHepatite:{
-		type: Number,
-		required: false
-	},
-	contactWChagas:{
-		type: String,
-		required: false,
-		enum: ['Sim','Não']
-	},
-	hadMalaria:{
-		type: String,
-		required: false,
-		enum: ['Sim','Não']
-	},
-	hasEpilepsia:{
-		type: String,
-		required: false,
-		enum: ['Sim','Não']
-	},
-	hasSiflis:{
-		type: String,
-		required: false,
-		enum: ['Sim','Não']
-	},
-	hasDiabetes:{
-		type: String,
-		required: false,
-		enum: ['Sim','Não']
-	},
-	hasRecentTattos:{
-		type: String,
-		required: false,
-		enum: ['Sim','Não']
-	},
-	hasRecentTransfusion:{
-		type: String,
-		required: false,
-		enum: ['Sim','Não']
-	},
-	hasAIDS:{
-		type: String,
-		required: false,
-		enum: ['Sim','Não','Não Sei']
-	},
-	bloodType:{
-		type: String,
-		required: false,
-		enum: ['A+','A-','B+','B-','AB+','AB-','O+','O-']
-	},*/
-	active: {
-		type: Boolean,
-		required: true,
-		enum: [0,1],
-		default: 1
-	},
+    phoneFix: {
+        type: String,
+        required: false
+    },
+    phoneMobile: {
+        type: String,
+        required: false
+    },
+    latitude: {
+        type: Number,
+        required: false
+    },
+    longitude: {
+        type: Number,
+        required: false
+    },
+    birthDate: {
+        type: Date,
+        required: false
+    },
+    weight: {
+        type: Number,
+        required: false
+    },
+    gender: {
+        type: String,
+        required: false,
+        enum: ['F', 'M']
+    },
+    hadHepatite: {
+        type: String,
+        required: false,
+        enum: ['Sim', 'Não']
+    },
+    ageHepatite: {
+        type: Number,
+        required: false
+    },
+    contactWChagas: {
+        type: String,
+        required: false,
+        enum: ['Sim', 'Não']
+    },
+    hadMalaria: {
+        type: String,
+        required: false,
+        enum: ['Sim', 'Não']
+    },
+    hasEpilepsia: {
+        type: String,
+        required: false,
+        enum: ['Sim', 'Não']
+    },
+    hasSiflis: {
+        type: String,
+        required: false,
+        enum: ['Sim', 'Não']
+    },
+    hasDiabetes: {
+        type: String,
+        required: false,
+        enum: ['Sim', 'Não']
+    },
+    hasRecentTattos: {
+        type: String,
+        required: false,
+        enum: ['Sim', 'Não']
+    },
+    hasRecentTransfusion: {
+        type: String,
+        required: false,
+        enum: ['Sim', 'Não']
+    },
+    hasAIDS: {
+        type: String,
+        required: false,
+        enum: ['Sim', 'Não', 'Não Sei']
+    },
+    bloodType: {
+        type: String,
+        required: false,
+        enum: ['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-']
+    },
+    active: {
+        type: Boolean,
+        required: true,
+        enum: [0, 1],
+        default: 1
+    },
     salt: String
 });
 

@@ -19,8 +19,11 @@ exports.authCallback = function(req, res) {
  */
 exports.signin = function(req, res) {
     if (req.isAuthenticated()) {
+
+        console.log('sigin hospital reached');
         return res.redirect('/');
     }
+    console.log('redirect to login');
     res.redirect('#!/login');
 };
 
@@ -48,6 +51,7 @@ exports.create = function(req, res, next) {
 
     req.assert('name', 'You must enter a name').notEmpty();
     req.assert('email', 'You must enter a valid email address').isEmail();
+    req.assert('cnpj', 'You must enter a valid CNPJ').notEmpty();
     req.assert('password', 'Password must be between 8-20 characters long').len(8, 20);
     req.assert('confirmPassword', 'Passwords do not match').equals(req.body.password);
 
@@ -70,7 +74,7 @@ exports.create = function(req, res, next) {
             }
             return res.status(400);
         }
-        res.status(200);
+        res.status(200).send();
     });
 
 };
