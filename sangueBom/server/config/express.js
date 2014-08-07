@@ -66,6 +66,10 @@ module.exports = function(app, passport, db) {
     // The cookieParser should be above session
     app.use(cookieParser());
 
+    // Habilitar Cors no servidor
+    var cors = require('cors');
+    app.use(cors());
+
     // Request body parsing middleware should be above methodOverride
     app.use(expressValidator());
     app.use(bodyParser.json());

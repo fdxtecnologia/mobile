@@ -19,15 +19,27 @@ module.exports = function(app, passport) {
     // AngularJS route to check for authentication
     app.route('/loggedin')
         .get(function(req, res) {
-            res.send(req.isAuthenticated() ? req.donor : '0');
+            res.send(req.isAuthenticated() ? req.user : '0');
         });
 
     app.route('/donor/update')
-        .put(donors.update);
+        .post(donors.update);
 
     app.route('/donor/remove')
-        .put(donors.remove)
+        .post(donors.remove);
 
+    app.route('/donor/api/remove/:id')
+        .put(donors.apiremove);
+
+    app.route('/donor/api/ativa/:id')
+        .put(donors.apiativa);
+
+    app.route('/donor/api/updatecadastro/:user')
+        .put(donors.apiupdateCadastro);
+
+    app.route('/donor/api/update/:user')
+        .put(donors.apiupdateEdit);
+        
     // Setting the local strategy route
     app.route('/donor/login')
         .post(passport.authenticate('donor', {
