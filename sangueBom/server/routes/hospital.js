@@ -36,7 +36,7 @@ module.exports = function(app, passport) {
         }), function(req, res) {
             console.log('hospital strategy reached in routes');
             res.send({
-                hospital: req.user,
+                user: req.user,
                 //redirect: (req.hospital.roles.indexOf('admin') !== -1) ? req.get('referer') : false
             });
         });

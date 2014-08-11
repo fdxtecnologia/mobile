@@ -29,9 +29,9 @@ var HospitalSchema = new Schema({
         type: String,
         required: true
     },
-    role: {
+    roles: {
     	type: String,
-    	default: 'hospital'
+    	default: ['hospital']
     },
 	cnpj:{
 		type: String,

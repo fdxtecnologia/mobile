@@ -34,9 +34,9 @@ var DonorSchema = new Schema({
         type: String,
         required: true
     },
-    role: {
+    roles: {
         type: String,
-        default: 'donor'
+        default: ['donor']
     },
     phoneFix: {
         type: String,
