@@ -1,0 +1,32 @@
+<ion-view title="Cadastro">
+  <ion-content class="has-header">
+          <div class="list">
+            <label class="item item-input item-stacked-label">
+              <span class="input-label">Nome</span>
+              <input type="text" placeholder="Nome completo" ng-model="data.nome">
+            </label>
+            <label class="item item-input item-stacked-label">
+              <span class="input-label">Email</span>
+              <input type="text" placeholder="exemplo@exemplo.com.br" ng-model="data.email">
+            </label>
+            <label class="item item-input item-stacked-label">
+              <span class="input-label">Login</span>
+              <input type="text" placeholder="Login" ng-model="data.login">
+            </label>
+            <label class="item item-input item-stacked-label">
+              <span class="input-label">Senha</span>
+              <input type="password" placeholder="senha" ng-model="data.senha">
+              A senha precisa ter entre 8-20 caracteres
+            </label>
+            <label class="item item-input item-stacked-label">
+              <span class="input-label">Confirmar senha</span>
+              <input type="password" placeholder="Confirmar senha" ng-model="data.confirmSenha">
+            </label>
+            <label class="item">
+              <button class="button button-positive" ng-click="cadastrarUser()">
+                Cadastrar
+              </button>
+            </label>
+          </div>
+  </ion-content>
+</ion-view>

@@ -1,0 +1,168 @@
+<ion-view title="Editar Dados">
+  <ion-content class="has-header">
+        <h1>{{ donor.name }}</h1>
+          <div class="list">
+            <div>
+              <label class="item item-input item-stacked-label">
+                <span class="input-label">Nome completo</span>
+                <input type="text" ng-model="data.nome">
+              </label>
+            </div>
+            <div>
+              <label class="item item-input item-stacked-label">
+                <span class="input-label">E-mail</span><br>
+                {{ donor.email }}
+              </label>
+            </div>
+            <div>
+              <label class="item item-input item-stacked-label">
+                <span class="input-label">Username</span><br>
+                {{ donor.username }}
+              </label>
+            </div>
+            <div>
+              <label class="item item-input item-stacked-label">
+                <span class="input-label">Nova</span>
+                <input type="password" ng-model="data.password">
+              </label> 
+            </div>
+            <div>
+              <label class="item item-input item-stacked-label">
+                <span class="input-label">Confirmar Nova Senha</span>
+                <input type="password" ng-model="data.confirmarPassword">
+              </label> 
+            </div>
+            <div>
+              <label class="item item-input item-stacked-label">
+                <span class="input-label">Telefone Fixo</span>
+                <input type="text" placeholder="Entre com seu telefone fixo" ng-model="data.telefone">
+              </label>
+            </div>
+            <div>
+              <label class="item item-input item-stacked-label">
+                <span class="input-label">Celular</span>
+                <input type="text" placeholder="Entre com seu Celular" ng-model="data.celular">
+              </label>
+            </div>
+            <div>
+              <label class="item item-input item-stacked-label">
+                <span class="input-label">Endereço</span>
+                <input type="text" placeholder="Nome da rua, numero, bairro, cidade" ng-model="data.endereco" ng-mouseleave="centerOnMe()">
+                <div id="map"></div>
+              </label>
+            </div>
+            <div>
+              <label class="item item-input item-stacked-label">
+                <span class="input-label">Aniversário</span>
+                <input type="date" ng-model="data.aniversario">
+              </label>
+            </div>
+            <div>
+              <label class="item item-input item-stacked-label">
+                <span class="input-label">Peso</span>
+                <input type="number" placeholder="Entre com seu peso atual" ng-model="data.peso">
+              </label>
+            </div>
+            <div>
+              <label class="item item-input item-stacked-label">
+                <span class="input-label">Sexo</span>
+                <select ng-model="data.sexo" ng-options="value as value for value in sex">
+                  <option selected>Masculino</option>
+                  <option>Feminino</option>
+                </select>
+              </label>
+            </div>
+            <div>
+              <label class="item item-input item-stacked-label">
+                <span class="input-label">Teve Hepatite?</span>
+                <select ng-model="data.hepatite" ng-options="value as value for value in options">
+                  
+                </select>
+              </label>
+            </div>
+            <div>
+              <label class="item item-input item-stacked-label">
+                <span class="input-label">Teve contato com o inseto de Chagas?</span>
+                <select ng-model="data.chagas" ng-options="value as value for value in options">
+                  
+                </select>
+              </label >
+            </div>
+            <div>
+              <label class="item item-input item-stacked-label">
+                <span class="input-label">Teve Malaria?</span>
+                <select ng-model="data.malaria" ng-options="value as value for value in options">
+                  
+                </select>
+              </label>
+            </div>
+            <div>
+              <label class="item item-input item-stacked-label">
+                <span class="input-label">Teve Epilepsia?</span>
+                <select ng-model="data.epilepsia" ng-options="value as value for value in options">
+                  
+                </select>
+              </label>
+            </div>
+            <div>
+              <label class="item item-input item-stacked-label">
+                <span class="input-label">Teve Sífilis?</span>
+                <select ng-model="data.sifilis" ng-options="value as value for value in options">
+                  
+                </select>
+              </label>
+            </div>
+            <div>
+              <label class="item item-input item-stacked-label">
+                <span class="input-label">Tem Diabetes?</span>
+                <select ng-model="data.diabetes" ng-options="value as value for value in options">
+                  
+                </select>
+              </label>
+            </div>
+            <div>
+              <label class="item item-input item-stacked-label">
+                <span class="input-label">Tatuagens Recentes?</span>
+                <select ng-model="data.tatuagem" ng-options="value as value for value in options">
+                  
+                </select>
+              </label>
+            </div>
+            <div>
+              <label class="item item-input item-stacked-label">
+                <span class="input-label">Transfusões de Sangue recentes?</span>
+                <select ng-model="data.tfsangue" ng-options="value as value for value in options">
+                  
+                </select>
+              </label>
+            </div>
+            <div>
+              <label class="item item-input item-stacked-label">
+                <span class="input-label">Tem AIDS?</span>
+                <select ng-model="data.aids" ng-options="value as value for value in aids">
+                  <option>Sim</option>
+                  <option selected>Não</option>
+                  <option>Não Sei</option>
+                </select>
+              </label>
+            </div>
+            <div>
+              <label class="item item-input item-stacked-label">
+                <span class="input-label">Tipo Sanguinio</span>
+                <select ng-model="data.tipoSanguinio" ng-options="value as value for value in bloodType">
+                  
+                </select>
+              </label>
+            </div>
+            <label class="item">
+              <button class="button button-positive" ng-click="editarUser()" >
+                Editar dados
+              </button>
+
+            </label>
+            <button class="button button-positive" ng-click="cancelEditarUser()" >
+                Cancelar
+              </button>
+          </div>
+  </ion-content>
+</ion-view>

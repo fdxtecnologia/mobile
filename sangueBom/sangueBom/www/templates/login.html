@@ -1,0 +1,23 @@
+<ion-view title="SangueBom">
+  <ion-content>
+      <div class="list">
+        <form name="formLogin" ng-submit="login()">
+            <label class="item item-input">
+              <span class="input-label">E-mail</span>
+              <input name="txtlogin" type="text" ng-model="data.email">
+            </label>
+            <label class="item item-input">
+              <span class="input-label">Senha</span>
+              <input name="txtpassword" type="password" ng-model="data.password">
+            </label>
+            
+            <label class="item">
+              <button class="button button-block button-positive" type="submmit">Log in</button>
+            </label>
+        </form>
+         <label class="item">
+          <button class="button button-block button-positive" ng-click="cadastrar()">Cadastrar</button>
+        </label>
+      </div>
+  </ion-content>
+</ion-view>

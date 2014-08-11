@@ -1,0 +1,116 @@
+<ion-view title="Cadastro">
+  <ion-content class="has-header">
+          <div class="list">
+            <label class="item item-input item-stacked-label">
+              <span class="input-label">Telefone Fixo</span>
+              <input type="text" placeholder="Entre com seu Telefone Fixo" ng-model="data.telefone">
+            </label>
+            <label class="item item-input item-stacked-label">
+              <span class="input-label">Celular</span>
+              <input type="text" placeholder="Entre com seu Celular" ng-model="data.celular">
+            </label>
+            <label class="item item-input item-stacked-label">
+              <span class="input-label">Endereço</span>
+              <input type="text" placeholder="Nome da rua, numero, bairro, cidade" ng-model="data.endereco" ng-mouseleave="centerOnMe()">
+              <div id="map"></div>
+            </label>
+            <label class="item item-input item-stacked-label">
+              <span class="input-label">Aniversário</span>
+              <input type="date" ng-model="data.aniversario">
+            </label>
+            <label class="item item-input item-stacked-label">
+              <span class="input-label">Peso</span>
+              <input type="number" placeholder="Entre com seu peso atual" ng-model="data.peso">
+            </label>
+            <label class="item item-input item-stacked-label">
+              <span class="input-label">Sexo</span>
+              <select ng-model="data.sexo">
+                <option selected>Masculino</option>
+                <option>Feminino</option>
+              </select>
+            </label>
+            <label class="item item-input item-stacked-label">
+              <span class="input-label">Teve Hepatite?</span>
+              <select ng-model="data.hepatite">
+                <option>Sim</option>
+                <option selected>Não</option>
+              </select>
+            </label>
+            <label class="item item-input item-stacked-label">
+              <span class="input-label">Teve contato com o inseto de Chagas?</span>
+              <select ng-model="data.chagas">
+                <option>Sim</option>
+                <option selected>Não</option>
+              </select>
+            </label >
+            <label class="item item-input item-stacked-label">
+              <span class="input-label">Teve Malaria?</span>
+              <select ng-model="data.malaria">
+                <option>Sim</option>
+                <option selected>Não</option>
+              </select>
+            </label>
+            <label class="item item-input item-stacked-label">
+              <span class="input-label">Teve Epilepsia?</span>
+              <select ng-model="data.epilepsia">
+                <option>Sim</option>
+                <option selected>Não</option>
+              </select>
+            </label>
+            <label class="item item-input item-stacked-label">
+              <span class="input-label">Teve Sífilis?</span>
+              <select ng-model="data.sifilis">
+                <option>Sim</option>
+                <option selected>Não</option>
+              </select>
+            </label>
+            <label class="item item-input item-stacked-label">
+              <span class="input-label">Tem Diabetes?</span>
+              <select ng-model="data.diabetes">
+                <option>Sim</option>
+                <option selected>Não</option>
+              </select>
+            </label>
+            <label class="item item-input item-stacked-label">
+              <span class="input-label">Tatuagens Recentes?</span>
+              <select ng-model="data.tatuagem">
+                <option>Sim</option>
+                <option selected>Não</option>
+              </select>
+            </label>
+            <label class="item item-input item-stacked-label">
+              <span class="input-label">Transfusões de Sangue recentes?</span>
+              <select ng-model="data.tfsangue">
+                <option>Sim</option>
+                <option selected>Não</option>
+              </select>
+            </label>
+            <label class="item item-input item-stacked-label">
+              <span class="input-label">Tem AIDS?</span>
+              <select ng-model="data.aids">
+                <option>Sim</option>
+                <option selected>Não</option>
+                <option>Não Sei</option>
+              </select>
+            </label>
+            <label class="item item-input item-stacked-label">
+              <span class="input-label">Tipo Sanguinio</span>
+              <select ng-model="data.tipoSanguinio">
+                <option selected>A+</option>
+                <option>A-</option>
+                <option>B+</option>
+                <option>B-</option>
+                <option>AB+</option>
+                <option>AB-</option>
+                <option>O+</option>
+                <option>O-</option>
+              </select>
+            </label>
+            <label class="item">
+              <button class="button button-positive" ng-click="cadastrarUserCont()" >
+                Cadastrar
+              </button>
+            </label>
+          </div>
+  </ion-content>
+</ion-view>

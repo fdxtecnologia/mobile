@@ -1,0 +1,24 @@
+<ion-view title="Home">
+  <ion-content>
+        <h1>{{ donor.name }}</h1>
+          <div class="list" ng-if="donor.active == true">
+            <label class="item">
+              <button class="button button-positive" ng-click="editarDados()" >
+                Editar dados
+              </button>
+            </label>
+            <label class="item">
+              <button class="button button-positive" ng-click="desativar()" >
+                Desativar Cadastro
+              </button>
+            </label>
+          </div>
+          <div class="list" ng-if="donor.active == false">
+            <label class="item">
+              <button class="button button-positive" ng-click="ativar()" >
+                Ativar Cadastro
+              </button>
+            </label>
+          </div>
+  </ion-content>
+</ion-view>
