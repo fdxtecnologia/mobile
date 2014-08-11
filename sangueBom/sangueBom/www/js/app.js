@@ -38,7 +38,6 @@ angular.module('starter', ['ionic', 'starter.controllers'])
         }
       }
     })
-
     .state('app.browse', {
       url: "/browse",
       views: {
@@ -53,6 +52,33 @@ angular.module('starter', ['ionic', 'starter.controllers'])
         'menuContent' :{
           templateUrl: "templates/cadastroLogin.html",
           controller: 'CadastroUserCtrl'
+        }
+      }
+    })
+    .state('app.cadastrousercontinuacao', {
+      url: "/cadastrousercontinuaca",
+      views: {
+        'menuContent' :{
+          templateUrl: "templates/cadastro_continuacao.html",
+          controller: 'CadastroUserContCtrl'
+        }
+      }
+    })
+    .state('app.home', {
+      url: "/home",
+      views: {
+        'menuContent' :{
+          templateUrl: "templates/home.html",
+          controller: 'HomeCtrl'
+        }
+      }
+    })
+    .state('app.editardados', {
+      url: "/editardados",
+      views: {
+        'menuContent' :{
+          templateUrl: "templates/editar_dados.html",
+          controller: 'EditarDadosCtrl'
         }
       }
     })

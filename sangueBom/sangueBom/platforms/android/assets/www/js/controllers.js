@@ -58,17 +58,28 @@ angular.module('starter.controllers', [])
               'confirmPassword': confirmSenha
             };
 
+            alert("Nome :"+nome+" Email: "+email+" Login: "+login+" Senha: "+senha);
+
+            alert(JSON.stringify(userJson));
             
             userJson = serializeData(userJson);
 
-                $http.post('http://localhost:3000/registerdonor', userJson)
+            alert("JSON: "+userJson);
+
+                $http.post('localhost:3000/registerdonor', {
+                    name: "Luiz"
+                    /*email: email,
+                    username: login,
+                    password: senha,
+                    confirmPassword: confirmSenha*/
+                })
                     .success(function(response) {
                         // authentication OK
                        alert("Certo!");
                     })
-                    .error(function(error) {
+                    .error(function(status) {
                         // Error: authentication failed
-                        alert(error);
+                        alert(status);
                     });
                 //$http.post('http://localhost:3000/registerdonor', userJson, 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8').success().error();
                 //$http.defaults.headers.post["Content-Type"] = "application/x-www-form-urlencoded; charset=UTF-8de";

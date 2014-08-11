@@ -1,2 +1,2 @@
-E:\mobile-develop\sangueBom2\sangueBom\platforms\android\ant-build\AndroidManifest.xml : \
-E:\mobile-develop\sangueBom2\sangueBom\platforms\android\AndroidManifest.xml \
+E:\mobile-develop\sangueBom\sangueBom\platforms\android\ant-build\AndroidManifest.xml : \
+E:\mobile-develop\sangueBom\sangueBom\platforms\android\AndroidManifest.xml \

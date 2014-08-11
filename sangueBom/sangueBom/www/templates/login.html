@@ -1,17 +1,20 @@
-<ion-view title="Cadastro">
-  <ion-content class="has-header">
+<ion-view title="SangueBom">
+  <ion-content>
       <div class="list">
-        <label class="item item-input">
-          <span class="input-label">Username</span>
-          <input type="text" ng-model="loginData.username">
-        </label>
-        <label class="item item-input">
-          <span class="input-label">Password</span>
-          <input type="password" ng-model="loginData.password">
-        </label>
-        <label class="item">
-          <button class="button button-block button-positive" type="submit">Log in</button>
-        </label>
+        <form name="formLogin" ng-submit="login()">
+            <label class="item item-input">
+              <span class="input-label">E-mail</span>
+              <input name="txtlogin" type="text" ng-model="data.email">
+            </label>
+            <label class="item item-input">
+              <span class="input-label">Senha</span>
+              <input name="txtpassword" type="password" ng-model="data.password">
+            </label>
+            
+            <label class="item">
+              <button class="button button-block button-positive" type="submmit">Log in</button>
+            </label>
+        </form>
          <label class="item">
           <button class="button button-block button-positive" ng-click="cadastrar()">Cadastrar</button>
         </label>
