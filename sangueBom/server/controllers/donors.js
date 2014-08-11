@@ -138,6 +138,7 @@ exports.update = function(req, res) {
 };
 
 exports.remove = function(req, res) {
+    console.log(req.user);
     if (req.isAuthenticated()) {
         Donor.update({
             _id: req.user.id
@@ -151,5 +152,608 @@ exports.remove = function(req, res) {
         });
     } else {
         return res.send(401, 'User Not Authorized');
+    }
+};
+
+exports.apiremove = function(req, res) {
+        Donor.update({
+            _id: req.params.id
+        }, {
+            $set: {
+                active: false
+            }
+        }, function(err, donor) {
+            if (err) return res.send(err);
+            res.send(202, 'User Removed');
+        });
+};
+
+exports.apiativa = function(req, res) {
+        Donor.update({
+            _id: req.params.id
+        }, {
+            $set: {
+                active: true
+            }
+        }, function(err, donor) {
+            if (err) return res.send(err);
+            res.send(202, 'User Active');
+        });
+};
+
+exports.apiupdateEdit = function(req, res) {
+        var User = req.params.user.split('@');
+        if(User[1] != "undefined"){
+            Donor.update({
+                _id: User[0]
+                }, {
+                    $set: {
+                        
+                            name: User[1]
+                        }
+                         
+                }, function(err, donor) {
+                    if (err) return res.send(err);
+                    res.send(202, 'User Updated');
+                });
+        }
+
+    if(User[2] != "undefined"){
+            Donor.update({
+                _id: User[0]
+                }, {
+                    $set: {
+                        
+                            password: User[2]
+                        }
+                    
+                }, function(err, donor) {
+                    if (err) return res.send(err);
+                    res.send(202, 'User Updated');
+                });
+    }
+
+    if(User[3] != "undefined"){
+            Donor.update({
+                _id: User[0]
+                }, {
+                    $set: {
+                        
+                            phoneFix: User[3]
+                        }
+                    
+                }, function(err, donor) {
+                    if (err) return res.send(err);
+                    res.send(202, 'User Updated');
+                });
+    }
+
+    if(User[4] != "undefined"){
+            Donor.update({
+                _id: User[0]
+                }, {
+                    $set: {
+                        
+                            phoneMobile: User[4]
+                        }
+                    
+                }, function(err, donor) {
+                    if (err) return res.send(err);
+                    res.send(202, 'User Updated');
+                });
+    }
+
+    if(User[5] != "undefined"){
+            Donor.update({
+                _id: User[0]
+                }, {
+                    $set: {
+                        
+                            latitude: User[5]
+                        }
+                    
+                }, function(err, donor) {
+                    if (err) return res.send(err);
+                    res.send(202, 'User Updated');
+                });
+    }
+
+    if(User[6] != "undefined"){
+            Donor.update({
+                _id: User[0]
+                }, {
+                    $set: {
+                        
+                            longitude: User[6]
+                        }
+                    
+                }, function(err, donor) {
+                    if (err) return res.send(err);
+                    res.send(202, 'User Updated');
+                });
+    }
+        
+    if(User[7] != "undefined"){
+            Donor.update({
+                _id: User[0]
+                }, {
+                    $set: {
+                        
+                            birthDate: User[7]
+                        }
+                    
+                }, function(err, donor) {
+                    if (err) return res.send(err);
+                    res.send(202, 'User Updated');
+                });
+    }
+    
+    if(User[8] != "undefined"){
+            Donor.update({
+                _id: User[0]
+                }, {
+                    $set: {
+                        
+                            weight: User[8]
+                        }
+                    
+                }, function(err, donor) {
+                    if (err) return res.send(err);
+                    res.send(202, 'User Updated');
+                });
+    }
+
+    if(User[9] != "undefined"){
+            Donor.update({
+                _id: User[0]
+                }, {
+                    $set: {
+                        
+                           gender: User[9]
+                        }
+                    
+                }, function(err, donor) {
+                    if (err) return res.send(err);
+                    res.send(202, 'User Updated');
+                });
+    }
+
+    if(User[10] != "undefined"){
+            Donor.update({
+                _id: User[0]
+                }, {
+                    $set: {
+                        
+                           hadHepatite: User[10]
+                        }
+                    
+                }, function(err, donor) {
+                    if (err) return res.send(err);
+                    res.send(202, 'User Updated');
+                });
+    }
+
+    if(User[11] != "undefined"){
+            Donor.update({
+                _id: User[0]
+                }, {
+                    $set: {
+                        
+                           contactWChagas: User[11]
+                        }
+                    
+                }, function(err, donor) {
+                    if (err) return res.send(err);
+                    res.send(202, 'User Updated');
+                });
+    }
+
+    if(User[12] != "undefined"){
+            Donor.update({
+                _id: User[0]
+                }, {
+                    $set: {
+                        
+                           hadMalaria: User[12]
+                        }
+                    
+                }, function(err, donor) {
+                    if (err) return res.send(err);
+                    res.send(202, 'User Updated');
+                });
+    }
+
+    if(User[13] != "undefined"){
+            Donor.update({
+                _id: User[0]
+                }, {
+                    $set: {
+                        
+                           hasEpilepsia: User[13]
+                        }
+                    
+                }, function(err, donor) {
+                    if (err) return res.send(err);
+                    res.send(202, 'User Updated');
+                });
+    }
+
+    if(User[14] != "undefined"){
+            Donor.update({
+                _id: User[0]
+                }, {
+                    $set: {
+                        
+                          hasSiflis: User[14]
+                        }
+                    
+                }, function(err, donor) {
+                    if (err) return res.send(err);
+                    res.send(202, 'User Updated');
+                });
+    }
+
+    if(User[15] != "undefined"){
+            Donor.update({
+                _id: User[0]
+                }, {
+                    $set: {
+                        
+                          hasDiabetes: User[15]
+                        }
+                    
+                }, function(err, donor) {
+                    if (err) return res.send(err);
+                    res.send(202, 'User Updated');
+                });
+    }
+
+    if(User[16] != "undefined"){
+            Donor.update({
+                _id: User[0]
+                }, {
+                    $set: {
+                        
+                          hasRecentTattos: User[16]
+                        }
+                    
+                }, function(err, donor) {
+                    if (err) return res.send(err);
+                    res.send(202, 'User Updated');
+                });
+    }
+
+    if(User[17] != "undefined"){
+            Donor.update({
+                _id: User[0]
+                }, {
+                    $set: {
+                        
+                           hasRecentTransfusion: User[17]
+                        }
+                    
+                }, function(err, donor) {
+                    if (err) return res.send(err);
+                    res.send(202, 'User Updated');
+                });
+    }
+
+    if(User[18] != "undefined"){
+            Donor.update({
+                _id: User[0]
+                }, {
+                    $set: {
+                        
+                           hasAIDS: User[18]
+                        }
+                    
+                }, function(err, donor) {
+                    if (err) return res.send(err);
+                    res.send(202, 'User Updated');
+                });
+    }
+
+    if(User[19] != "undefined"){
+            Donor.update({
+                _id: User[0]
+                }, {
+                    $set: {
+                        
+                           bloodType: User[19]
+                        }
+                    
+                }, function(err, donor) {
+                    if (err) return res.send(err);
+                    res.send(202, 'User Updated');
+                });
+    }
+
+    if(User[20] != "undefined"){
+            Donor.update({
+                _id: User[0]
+                }, {
+                    $set: {
+                        
+                           adress: User[20]
+                        }
+                    
+                }, function(err, donor) {
+                    if (err) return res.send(err);
+                    res.send(202, 'User Updated');
+                });
+    }
+};
+
+exports.apiupdateCadastro = function(req, res) {
+        var User = req.params.user.split('@');
+
+    if(User[1] != "undefined"){
+            Donor.update({
+                _id: User[0]
+                }, {
+                    $set: {
+                        
+                            phoneFix: User[1]
+                        }
+                    
+                }, function(err, donor) {
+                    if (err) return res.send(err);
+                    res.send(202, 'User Updated');
+                });
+    }
+
+    if(User[2] != "undefined"){
+            Donor.update({
+                _id: User[0]
+                }, {
+                    $set: {
+                        
+                            phoneMobile: User[2]
+                        }
+                    
+                }, function(err, donor) {
+                    if (err) return res.send(err);
+                    res.send(202, 'User Updated');
+                });
+    }
+
+    if(User[3] != "undefined"){
+            Donor.update({
+                _id: User[0]
+                }, {
+                    $set: {
+                        
+                            latitude: User[3]
+                        }
+                    
+                }, function(err, donor) {
+                    if (err) return res.send(err);
+                    res.send(202, 'User Updated');
+                });
+    }
+
+    if(User[4] != "undefined"){
+            Donor.update({
+                _id: User[0]
+                }, {
+                    $set: {
+                        
+                            longitude: User[4]
+                        }
+                    
+                }, function(err, donor) {
+                    if (err) return res.send(err);
+                    res.send(202, 'User Updated');
+                });
+    }
+        
+    if(User[5] != "undefined"){
+            Donor.update({
+                _id: User[0]
+                }, {
+                    $set: {
+                        
+                            birthDate: User[5]
+                        }
+                    
+                }, function(err, donor) {
+                    if (err) return res.send(err);
+                    res.send(202, 'User Updated');
+                });
+    }
+    
+    if(User[6] != "undefined"){
+            Donor.update({
+                _id: User[0]
+                }, {
+                    $set: {
+                        
+                            weight: User[6]
+                        }
+                    
+                }, function(err, donor) {
+                    if (err) return res.send(err);
+                    res.send(202, 'User Updated');
+                });
+    }
+
+    if(User[7] != "undefined"){
+            Donor.update({
+                _id: User[0]
+                }, {
+                    $set: {
+                        
+                           gender: User[7]
+                        }
+                    
+                }, function(err, donor) {
+                    if (err) return res.send(err);
+                    res.send(202, 'User Updated');
+                });
+    }
+
+    if(User[8] != "undefined"){
+            Donor.update({
+                _id: User[0]
+                }, {
+                    $set: {
+                        
+                           hadHepatite: User[8]
+                        }
+                    
+                }, function(err, donor) {
+                    if (err) return res.send(err);
+                    res.send(202, 'User Updated');
+                });
+    }
+
+    if(User[9] != "undefined"){
+            Donor.update({
+                _id: User[0]
+                }, {
+                    $set: {
+                        
+                           contactWChagas: User[9]
+                        }
+                    
+                }, function(err, donor) {
+                    if (err) return res.send(err);
+                    res.send(202, 'User Updated');
+                });
+    }
+
+    if(User[10] != "undefined"){
+            Donor.update({
+                _id: User[0]
+                }, {
+                    $set: {
+                        
+                           hadMalaria: User[10]
+                        }
+                    
+                }, function(err, donor) {
+                    if (err) return res.send(err);
+                    res.send(202, 'User Updated');
+                });
+    }
+
+    if(User[11] != "undefined"){
+            Donor.update({
+                _id: User[0]
+                }, {
+                    $set: {
+                        
+                           hasEpilepsia: User[11]
+                        }
+                    
+                }, function(err, donor) {
+                    if (err) return res.send(err);
+                    res.send(202, 'User Updated');
+                });
+    }
+
+    if(User[12] != "undefined"){
+            Donor.update({
+                _id: User[0]
+                }, {
+                    $set: {
+                        
+                          hasSiflis: User[12]
+                        }
+                    
+                }, function(err, donor) {
+                    if (err) return res.send(err);
+                    res.send(202, 'User Updated');
+                });
+    }
+
+    if(User[13] != "undefined"){
+            Donor.update({
+                _id: User[0]
+                }, {
+                    $set: {
+                        
+                          hasDiabetes: User[13]
+                        }
+                    
+                }, function(err, donor) {
+                    if (err) return res.send(err);
+                    res.send(202, 'User Updated');
+                });
+    }
+
+    if(User[14] != "undefined"){
+            Donor.update({
+                _id: User[0]
+                }, {
+                    $set: {
+                        
+                          hasRecentTattos: User[14]
+                        }
+                    
+                }, function(err, donor) {
+                    if (err) return res.send(err);
+                    res.send(202, 'User Updated');
+                });
+    }
+
+    if(User[15] != "undefined"){
+            Donor.update({
+                _id: User[0]
+                }, {
+                    $set: {
+                        
+                           hasRecentTransfusion: User[15]
+                        }
+                    
+                }, function(err, donor) {
+                    if (err) return res.send(err);
+                    res.send(202, 'User Updated');
+                });
+    }
+
+    if(User[16] != "undefined"){
+            Donor.update({
+                _id: User[0]
+                }, {
+                    $set: {
+                        
+                           hasAIDS: User[16]
+                        }
+                    
+                }, function(err, donor) {
+                    if (err) return res.send(err);
+                    res.send(202, 'User Updated');
+                });
+    }
+
+    if(User[17] != "undefined"){
+            Donor.update({
+                _id: User[0]
+                }, {
+                    $set: {
+                        
+                           bloodType: User[17]
+                        }
+                    
+                }, function(err, donor) {
+                    if (err) return res.send(err);
+                    res.send(202, 'User Updated');
+                });
+    }
+
+    if(User[18] != "undefined"){
+            Donor.update({
+                _id: User[0]
+                }, {
+                    $set: {
+                        
+                           adress: User[18]
+                        }
+                    
+                }, function(err, donor) {
+                    if (err) return res.send(err);
+                    res.send(202, 'User Updated');
+                });
     }
 };

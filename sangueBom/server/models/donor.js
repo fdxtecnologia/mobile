@@ -46,6 +46,10 @@ var DonorSchema = new Schema({
         type: String,
         required: false
     },
+    adress: {
+        type: String,
+        required: false
+    },
     latitude: {
         type: Number,
         required: false
