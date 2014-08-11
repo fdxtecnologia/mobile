@@ -5,7 +5,8 @@
  */
 var mongoose = require('mongoose'),
     User = mongoose.model('Donor'),
-    ObjectId = require('mongoose').Types.ObjectId;
+    ObjectId = require('mongoose').Types.ObjectId,
+    geocoder = require('geocoder');
 
 /**
  * Auth callback - is it necessary for local strategy login?
@@ -123,6 +124,7 @@ exports.donor = function(req, res, next, id) {
 };
 
 exports.update = function(req, res) {
+    console.log(req.user);
     if (req.isAuthenticated()) {
         User.update({
             _id: req.user.id
@@ -130,7 +132,7 @@ exports.update = function(req, res) {
             $set: req.body
         }, function(err, donor) {
             if (err) return res.send(err);
-            res.status(202).send(donor);
+            res.status(202).end();
         });
     } else {
         return res.send(401, 'User Not Authorized');

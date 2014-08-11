@@ -7,6 +7,7 @@ angular.module('mean.system').controller('HeaderController', ['$scope', '$http',
 
         $http.get('/loggedin')
             .success(function(response) {
+                console.log(response);
                 if (response !== 0) {
                     if (!angular.isDefined($rootScope.user)) {
                         $rootScope.user = angular.fromJson(sessionStorage.user);
@@ -15,7 +16,10 @@ angular.module('mean.system').controller('HeaderController', ['$scope', '$http',
                             authenticated: !!$rootScope.user,
                             user: $rootScope.user
                         };
+                        $rootScope.$emit('loggedin');
                     };
+                } else {
+                    $scope.logout();
                 };
             });
 

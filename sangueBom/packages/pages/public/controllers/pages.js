@@ -50,35 +50,6 @@ angular.module('mean.pages')
                     })
             };
 
-            $scope.search = function () {
-                var ad = $scope.data.address;
-
-                $scope.geocoder = new google.maps.Geocoder();
-                $scope.geocoder.geocode({'address': ad}, function(results, status) {
-                    // body...
-                    if (status === google.maps.GeocoderStatus.OK) {
-                        console.log('uai');
-                    };
-                })
-
-                console.log('here I am!');
-                /*console.log(ad);
-                $http.get('http://maps.googleapis.com/maps/api/geocode/json', {'address': ad})
-                    .success(function(response) {
-                        console.log(response);
-                        if (response.status === "OK") {
-                            $scope.data.latitude = response.results.location.lat;
-                            $scope.data.longitude = response.results.location.lng;
-                            console.log('latitude: ' + $scope.data.latitude);
-                            console.log('longitude: ' + $scope.data.longitude);
-                        };
-                    })
-                    .error(function (err) {
-                        alert('Address not available at this moment, please wait a few minutes. ' + err);
-                    });*/
-            };
-
-
             $scope.save = function() {
                 if ($scope.data.hadHepatite == 'Não') {
                     $scope.data.ageHepatite = null;

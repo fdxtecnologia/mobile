@@ -1,5 +1,4 @@
 <h2>Editar Informações</h2>
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB0APMtwoddsbd6iemzMEET_VozhZu-Nr0&sensor=false" type="text/javascript"></script>
 
 <div style="padding-top: 30px;" class="">
     <form ng-submit="save()" ng-controller="ProfileController" data-ng-init="init()">
@@ -13,35 +12,35 @@
         <div class="form-group row">
             <label for="name" class="col-md-4 control-label">Telefone Movel</label>
             <div class="col-md-7">
-                <input id="name" type="text" name="name" placeholder="" class="form-control" ng-model="data.phoneMobile" />
+                <input id="name" type="text" name="name" placeholder="" class="form-control" ng-model="data.phoneMobile" ng-required="true"/>
             </div>
         </div>
 
         <div class="form-group row">
             <label for="name" class="col-md-4 control-label">Endereço</label>
             <div class="col-md-7">
-                <input id="name" type="text" name="name" placeholder="" ng-blur="search()" class="form-control" ng-model="data.address" />
+                <input id="name" type="text" name="name" placeholder="" class="form-control" ng-model="data.address" ng-required="true"/>
             </div>
         </div>
 
         <div class="form-group row">
             <label for="name" class="col-md-4 control-label">Data de Nascimento</label>
             <div class="col-md-7">
-                <input id="name" type="date" name="name" placeholder="" ng-init="data.birthDate" ng-init="data.birthDate" class="form-control" ng-model="data.birthDate" />
+                <input id="name" type="date" name="name" placeholder="" ng-init="data.birthDate" ng-init="data.birthDate" class="form-control" ng-model="data.birthDate" ng-required="true" />
             </div>
         </div>
 
         <div class="form-group row">
             <label for="name" class="col-md-4 control-label">Peso</label>
             <div class="col-md-7">
-                <input id="name" type="text" name="name" placeholder="" class="form-control" ng-model="data.weight" />
+                <input id="name" type="text" name="name" placeholder="" class="form-control" ng-model="data.weight" ng-required="true"/>
             </div>
         </div>
 
         <div class="form-group row">
             <label for="name" class="col-md-4 control-label">Sexo</label>
             <div class="col-md-7">
-                <select ng-model="data.gender" ng-options="value as value for value in sex">
+                <select ng-model="data.gender" ng-options="value as value for value in sex" ng-required="true" ng-required="true">
                 </select>
                 <!-- <input id="name" type="text" name="name" placeholder="" class="form-control" ng-model="data.sex" /> -->
             </div>
@@ -65,7 +64,7 @@
         <div class="form-group row">
             <label for="name" class="col-md-4 control-label">Contato com hospedeiro de Chagas</label>
             <div class="col-md-7">
-                <select ng-model="data.contactWChagas" ng-options="value as value for value in options">
+                <select ng-model="data.contactWChagas" ng-options="value as value for value in options" ng-required="true">
 
                 </select>
                 <!-- <input id="name" type="checkbox" name="name" placeholder="" class="form-control" ng-model="data.chagas" /> -->
@@ -75,7 +74,7 @@
         <div class="form-group row">
             <label for="name" class="col-md-4 control-label">Teve Malaria</label>
             <div class="col-md-7">
-                <select ng-model="data.hadMalaria" ng-options="value as value for value in options">
+                <select ng-model="data.hadMalaria" ng-options="value as value for value in options" ng-required="true">
 
                 </select>
                 <!-- <input id="name" type="checkbox" name="name" placeholder="" class="form-control" ng-model="data.malaria" /> -->
@@ -85,7 +84,7 @@
         <div class="form-group row">
             <label for="name" class="col-md-4 control-label">Tem Epilepsia</label>
             <div class="col-md-7">
-                <select ng-model="data.hasEpilepsia" ng-options="value as value for value in options">
+                <select ng-model="data.hasEpilepsia" ng-options="value as value for value in options" ng-required="true">
 
                 </select>
                 <!-- <input id="name" type="checkbox" name="name" placeholder="" class="form-control" ng-model="data.epilepsie" /> -->
@@ -95,7 +94,7 @@
         <div class="form-group row">
             <label for="name" class="col-md-4 control-label">Teve Sifilis</label>
             <div class="col-md-7">
-                <select ng-model="data.hasSiflis" ng-options="value as value for value in options">
+                <select ng-model="data.hasSiflis" ng-options="value as value for value in options" ng-required="true">
 
                 </select>
                 <!-- <input id="name" type="checkbox" name="name" placeholder="" class="form-control" ng-model="data.sifilis" /> -->
@@ -104,7 +103,7 @@
         <div class="form-group row">
             <label for="name" class="col-md-4 control-label">Tem Diabetes</label>
             <div class="col-md-7">
-                <select ng-model="data.hasDiabetes" ng-options="value as value for value in options">
+                <select ng-model="data.hasDiabetes" ng-options="value as value for value in options" ng-required="true">
 
                 </select>
                 <!-- <input id="name" type="checkbox" name="name" placeholder="" class="form-control" ng-model="data.diabetes" /> -->
@@ -114,7 +113,7 @@
         <div class="form-group row">
             <label for="name" class="col-md-4 control-label">Tatuagens Recentes</label>
             <div class="col-md-7">
-                <select ng-model="data.hasRecentTattos" ng-options="value as value for value in options">
+                <select ng-model="data.hasRecentTattos" ng-options="value as value for value in options" ng-required="true">
 
                 </select>
                 <!-- <input id="name" type="checkbox" name="name" placeholder="" class="form-control" ng-model="data.tatooo" /> -->
@@ -124,7 +123,7 @@
         <div class="form-group row">
             <label for="name" class="col-md-4 control-label">Transfusão Recente</label>
             <div class="col-md-7">
-                <select ng-model="data.hasRecentTransfusion" ng-options="value as value for value in options">
+                <select ng-model="data.hasRecentTransfusion" ng-options="value as value for value in options" ng-required="true">
 
                 </select>
                 <!-- <input id="name" type="checkbox" name="name" placeholder="" class="form-control" ng-model="data.transfusion" /> -->
@@ -134,7 +133,7 @@
         <div class="form-group row">
             <label for="name" class="col-md-4 control-label">Portador de AIDS</label>
             <div class="col-md-7">
-                <select ng-model="data.hasAIDS" ng-options="value as value for value in aidsOptions">
+                <select ng-model="data.hasAIDS" ng-options="value as value for value in aidsOptions" ng-required="true">
 
                 </select>
                 <!-- <input id="name" type="checkbox" name="name" placeholder="" class="form-control" ng-model="data.aids" /> -->
@@ -144,7 +143,7 @@
         <div class="form-group row">
             <label for="name" class="col-md-4 control-label">Tipo Sanguineo</label>
             <div class="col-md-7">
-                <select ng-model="data.bloodType" ng-options="value as value for value in blood">
+                <select ng-model="data.bloodType" ng-options="value as value for value in blood" ng-required="true">
                 </select>
                 <!-- <input id="name" type="text" name="name" placeholder="" class="form-control" ng-model="data.blood" /> -->
             </div>
