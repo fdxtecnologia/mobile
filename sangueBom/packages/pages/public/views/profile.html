@@ -1,0 +1,159 @@
+<h2>Editar Informações</h2>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB0APMtwoddsbd6iemzMEET_VozhZu-Nr0&sensor=false" type="text/javascript"></script>
+
+<div style="padding-top: 30px;" class="">
+    <form ng-submit="save()" ng-controller="ProfileController" data-ng-init="init()">
+        <div class="form-group row">
+            <label for="name" class="col-md-4 control-label">Telefone fixo</label>
+            <div class="col-md-7">
+                <input id="name" type="text" name="name" placeholder="" class="form-control" ng-model="data.phoneFix" />
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label for="name" class="col-md-4 control-label">Telefone Movel</label>
+            <div class="col-md-7">
+                <input id="name" type="text" name="name" placeholder="" class="form-control" ng-model="data.phoneMobile" />
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label for="name" class="col-md-4 control-label">Endereço</label>
+            <div class="col-md-7">
+                <input id="name" type="text" name="name" placeholder="" ng-blur="search()" class="form-control" ng-model="data.address" />
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label for="name" class="col-md-4 control-label">Data de Nascimento</label>
+            <div class="col-md-7">
+                <input id="name" type="date" name="name" placeholder="" ng-init="data.birthDate" ng-init="data.birthDate" class="form-control" ng-model="data.birthDate" />
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label for="name" class="col-md-4 control-label">Peso</label>
+            <div class="col-md-7">
+                <input id="name" type="text" name="name" placeholder="" class="form-control" ng-model="data.weight" />
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label for="name" class="col-md-4 control-label">Sexo</label>
+            <div class="col-md-7">
+                <select ng-model="data.gender" ng-options="value as value for value in sex">
+                </select>
+                <!-- <input id="name" type="text" name="name" placeholder="" class="form-control" ng-model="data.sex" /> -->
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label for="name" class="col-md-4 control-label">Teve Hepatite</label>
+            <div class="col-md-7">
+                <select ng-model="data.hadHepatite" ng-options="value as value for value in options">
+                </select>
+                <!-- <input id="name" type="checkbox" name="name" placeholder="" class="form-control" ng-model="data.hepatites" /> -->
+            </div>
+        </div>
+        <div class="form-group row" ng-show="data.hadHepatite == 'Sim'">
+            <label class="col-md-4 control-label">Idade Hepatite</label>
+            <div class="col-md-7">
+                <input id="name" type="number" min="0" max="" name="name" placeholder="" class="form-control" ng-model="data.ageHepatite" />
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label for="name" class="col-md-4 control-label">Contato com hospedeiro de Chagas</label>
+            <div class="col-md-7">
+                <select ng-model="data.contactWChagas" ng-options="value as value for value in options">
+
+                </select>
+                <!-- <input id="name" type="checkbox" name="name" placeholder="" class="form-control" ng-model="data.chagas" /> -->
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label for="name" class="col-md-4 control-label">Teve Malaria</label>
+            <div class="col-md-7">
+                <select ng-model="data.hadMalaria" ng-options="value as value for value in options">
+
+                </select>
+                <!-- <input id="name" type="checkbox" name="name" placeholder="" class="form-control" ng-model="data.malaria" /> -->
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label for="name" class="col-md-4 control-label">Tem Epilepsia</label>
+            <div class="col-md-7">
+                <select ng-model="data.hasEpilepsia" ng-options="value as value for value in options">
+
+                </select>
+                <!-- <input id="name" type="checkbox" name="name" placeholder="" class="form-control" ng-model="data.epilepsie" /> -->
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label for="name" class="col-md-4 control-label">Teve Sifilis</label>
+            <div class="col-md-7">
+                <select ng-model="data.hasSiflis" ng-options="value as value for value in options">
+
+                </select>
+                <!-- <input id="name" type="checkbox" name="name" placeholder="" class="form-control" ng-model="data.sifilis" /> -->
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="name" class="col-md-4 control-label">Tem Diabetes</label>
+            <div class="col-md-7">
+                <select ng-model="data.hasDiabetes" ng-options="value as value for value in options">
+
+                </select>
+                <!-- <input id="name" type="checkbox" name="name" placeholder="" class="form-control" ng-model="data.diabetes" /> -->
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label for="name" class="col-md-4 control-label">Tatuagens Recentes</label>
+            <div class="col-md-7">
+                <select ng-model="data.hasRecentTattos" ng-options="value as value for value in options">
+
+                </select>
+                <!-- <input id="name" type="checkbox" name="name" placeholder="" class="form-control" ng-model="data.tatooo" /> -->
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label for="name" class="col-md-4 control-label">Transfusão Recente</label>
+            <div class="col-md-7">
+                <select ng-model="data.hasRecentTransfusion" ng-options="value as value for value in options">
+
+                </select>
+                <!-- <input id="name" type="checkbox" name="name" placeholder="" class="form-control" ng-model="data.transfusion" /> -->
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label for="name" class="col-md-4 control-label">Portador de AIDS</label>
+            <div class="col-md-7">
+                <select ng-model="data.hasAIDS" ng-options="value as value for value in aidsOptions">
+
+                </select>
+                <!-- <input id="name" type="checkbox" name="name" placeholder="" class="form-control" ng-model="data.aids" /> -->
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label for="name" class="col-md-4 control-label">Tipo Sanguineo</label>
+            <div class="col-md-7">
+                <select ng-model="data.bloodType" ng-options="value as value for value in blood">
+                </select>
+                <!-- <input id="name" type="text" name="name" placeholder="" class="form-control" ng-model="data.blood" /> -->
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div style="padding-top: 30px;" class="col-md-offset-4 col-md-8">
+                <button type="submit" class="btn btn-primary">Salvar</button>
+            </div>
+        </div>
+    </form>
+</div>

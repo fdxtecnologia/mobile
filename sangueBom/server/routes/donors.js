@@ -39,15 +39,14 @@ module.exports = function(app, passport) {
 
     app.route('/donor/api/update/:user')
         .put(donors.apiupdateEdit);
-        
+
     // Setting the local strategy route
     app.route('/donor/login')
         .post(passport.authenticate('donor', {
             failureFlash: true
         }), function(req, res) {
-            console.log('donor strategy reached in routes');
             res.send({
-                donor: req.user,
+                user: req.user,
                 //redirect: (req.donor.roles.indexOf('admin') !== -1) ? req.get('referer') : false
             });
         });

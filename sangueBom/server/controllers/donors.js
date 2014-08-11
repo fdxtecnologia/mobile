@@ -4,7 +4,7 @@
  * Dependencies
  */
 var mongoose = require('mongoose'),
-    Donor = mongoose.model('Donor'),
+    User = mongoose.model('Donor'),
     ObjectId = require('mongoose').Types.ObjectId;
 
 /**
@@ -44,7 +44,7 @@ exports.session = function(req, res) {
  */
 exports.create = function(req, res, next) {
 
-    var donor = new Donor(req.body);
+    var donor = new User(req.body);
 
     req.assert('name', 'You must enter a name').notEmpty();
     req.assert('email', 'You must enter a valid email address').isEmail();
@@ -78,7 +78,7 @@ exports.create = function(req, res, next) {
     if (errors) {
         return res.status(400).send(errors);
     }
-
+    donor.roles = ['donor'];
     donor.save(function(err) {
         if (err) {
             switch (err.code) {
@@ -100,7 +100,7 @@ exports.create = function(req, res, next) {
 };
 
 /**
- * Send Donor
+ * Send User
  */
 exports.me = function(req, res) {
     res.jsonp(req.donor || null);
@@ -110,7 +110,7 @@ exports.me = function(req, res) {
  * Find donor by id
  */
 exports.donor = function(req, res, next, id) {
-    Donor
+    User
         .findOne({
             _id: id
         })
@@ -124,13 +124,13 @@ exports.donor = function(req, res, next, id) {
 
 exports.update = function(req, res) {
     if (req.isAuthenticated()) {
-        Donor.update({
+        User.update({
             _id: req.user.id
         }, {
             $set: req.body
         }, function(err, donor) {
             if (err) return res.send(err);
-            res.send(202, 'User Updated');
+            res.status(202).send(donor);
         });
     } else {
         return res.send(401, 'User Not Authorized');
@@ -140,7 +140,7 @@ exports.update = function(req, res) {
 exports.remove = function(req, res) {
     console.log(req.user);
     if (req.isAuthenticated()) {
-        Donor.update({
+        User.update({
             _id: req.user.id
         }, {
             $set: {
@@ -156,7 +156,7 @@ exports.remove = function(req, res) {
 };
 
 exports.apiremove = function(req, res) {
-        Donor.update({
+        User.update({
             _id: req.params.id
         }, {
             $set: {
@@ -169,7 +169,7 @@ exports.apiremove = function(req, res) {
 };
 
 exports.apiativa = function(req, res) {
-        Donor.update({
+        User.update({
             _id: req.params.id
         }, {
             $set: {
@@ -184,7 +184,7 @@ exports.apiativa = function(req, res) {
 exports.apiupdateEdit = function(req, res) {
         var User = req.params.user.split('@');
         if(User[1] != "undefined"){
-            Donor.update({
+            User.update({
                 _id: User[0]
                 }, {
                     $set: {
@@ -199,7 +199,7 @@ exports.apiupdateEdit = function(req, res) {
         }
 
     if(User[2] != "undefined"){
-            Donor.update({
+            User.update({
                 _id: User[0]
                 }, {
                     $set: {
@@ -214,7 +214,7 @@ exports.apiupdateEdit = function(req, res) {
     }
 
     if(User[3] != "undefined"){
-            Donor.update({
+            User.update({
                 _id: User[0]
                 }, {
                     $set: {
@@ -229,7 +229,7 @@ exports.apiupdateEdit = function(req, res) {
     }
 
     if(User[4] != "undefined"){
-            Donor.update({
+            User.update({
                 _id: User[0]
                 }, {
                     $set: {
@@ -244,7 +244,7 @@ exports.apiupdateEdit = function(req, res) {
     }
 
     if(User[5] != "undefined"){
-            Donor.update({
+            User.update({
                 _id: User[0]
                 }, {
                     $set: {
@@ -259,7 +259,7 @@ exports.apiupdateEdit = function(req, res) {
     }
 
     if(User[6] != "undefined"){
-            Donor.update({
+            User.update({
                 _id: User[0]
                 }, {
                     $set: {
@@ -274,7 +274,7 @@ exports.apiupdateEdit = function(req, res) {
     }
         
     if(User[7] != "undefined"){
-            Donor.update({
+            User.update({
                 _id: User[0]
                 }, {
                     $set: {
@@ -289,7 +289,7 @@ exports.apiupdateEdit = function(req, res) {
     }
     
     if(User[8] != "undefined"){
-            Donor.update({
+            User.update({
                 _id: User[0]
                 }, {
                     $set: {
@@ -304,7 +304,7 @@ exports.apiupdateEdit = function(req, res) {
     }
 
     if(User[9] != "undefined"){
-            Donor.update({
+            User.update({
                 _id: User[0]
                 }, {
                     $set: {
@@ -319,7 +319,7 @@ exports.apiupdateEdit = function(req, res) {
     }
 
     if(User[10] != "undefined"){
-            Donor.update({
+            User.update({
                 _id: User[0]
                 }, {
                     $set: {
@@ -334,7 +334,7 @@ exports.apiupdateEdit = function(req, res) {
     }
 
     if(User[11] != "undefined"){
-            Donor.update({
+            User.update({
                 _id: User[0]
                 }, {
                     $set: {
@@ -349,7 +349,7 @@ exports.apiupdateEdit = function(req, res) {
     }
 
     if(User[12] != "undefined"){
-            Donor.update({
+            User.update({
                 _id: User[0]
                 }, {
                     $set: {
@@ -364,7 +364,7 @@ exports.apiupdateEdit = function(req, res) {
     }
 
     if(User[13] != "undefined"){
-            Donor.update({
+            User.update({
                 _id: User[0]
                 }, {
                     $set: {
@@ -379,7 +379,7 @@ exports.apiupdateEdit = function(req, res) {
     }
 
     if(User[14] != "undefined"){
-            Donor.update({
+            User.update({
                 _id: User[0]
                 }, {
                     $set: {
@@ -394,7 +394,7 @@ exports.apiupdateEdit = function(req, res) {
     }
 
     if(User[15] != "undefined"){
-            Donor.update({
+            User.update({
                 _id: User[0]
                 }, {
                     $set: {
@@ -409,7 +409,7 @@ exports.apiupdateEdit = function(req, res) {
     }
 
     if(User[16] != "undefined"){
-            Donor.update({
+            User.update({
                 _id: User[0]
                 }, {
                     $set: {
@@ -424,7 +424,7 @@ exports.apiupdateEdit = function(req, res) {
     }
 
     if(User[17] != "undefined"){
-            Donor.update({
+            User.update({
                 _id: User[0]
                 }, {
                     $set: {
@@ -439,7 +439,7 @@ exports.apiupdateEdit = function(req, res) {
     }
 
     if(User[18] != "undefined"){
-            Donor.update({
+            User.update({
                 _id: User[0]
                 }, {
                     $set: {
@@ -454,7 +454,7 @@ exports.apiupdateEdit = function(req, res) {
     }
 
     if(User[19] != "undefined"){
-            Donor.update({
+            User.update({
                 _id: User[0]
                 }, {
                     $set: {
@@ -469,7 +469,7 @@ exports.apiupdateEdit = function(req, res) {
     }
 
     if(User[20] != "undefined"){
-            Donor.update({
+            User.update({
                 _id: User[0]
                 }, {
                     $set: {
@@ -488,7 +488,7 @@ exports.apiupdateCadastro = function(req, res) {
         var User = req.params.user.split('@');
 
     if(User[1] != "undefined"){
-            Donor.update({
+            User.update({
                 _id: User[0]
                 }, {
                     $set: {
@@ -503,7 +503,7 @@ exports.apiupdateCadastro = function(req, res) {
     }
 
     if(User[2] != "undefined"){
-            Donor.update({
+            User.update({
                 _id: User[0]
                 }, {
                     $set: {
@@ -518,7 +518,7 @@ exports.apiupdateCadastro = function(req, res) {
     }
 
     if(User[3] != "undefined"){
-            Donor.update({
+            User.update({
                 _id: User[0]
                 }, {
                     $set: {
@@ -533,7 +533,7 @@ exports.apiupdateCadastro = function(req, res) {
     }
 
     if(User[4] != "undefined"){
-            Donor.update({
+            User.update({
                 _id: User[0]
                 }, {
                     $set: {
@@ -548,7 +548,7 @@ exports.apiupdateCadastro = function(req, res) {
     }
         
     if(User[5] != "undefined"){
-            Donor.update({
+            User.update({
                 _id: User[0]
                 }, {
                     $set: {
@@ -563,7 +563,7 @@ exports.apiupdateCadastro = function(req, res) {
     }
     
     if(User[6] != "undefined"){
-            Donor.update({
+            User.update({
                 _id: User[0]
                 }, {
                     $set: {
@@ -578,7 +578,7 @@ exports.apiupdateCadastro = function(req, res) {
     }
 
     if(User[7] != "undefined"){
-            Donor.update({
+            User.update({
                 _id: User[0]
                 }, {
                     $set: {
@@ -593,7 +593,7 @@ exports.apiupdateCadastro = function(req, res) {
     }
 
     if(User[8] != "undefined"){
-            Donor.update({
+            User.update({
                 _id: User[0]
                 }, {
                     $set: {
@@ -608,7 +608,7 @@ exports.apiupdateCadastro = function(req, res) {
     }
 
     if(User[9] != "undefined"){
-            Donor.update({
+            User.update({
                 _id: User[0]
                 }, {
                     $set: {
@@ -623,7 +623,7 @@ exports.apiupdateCadastro = function(req, res) {
     }
 
     if(User[10] != "undefined"){
-            Donor.update({
+            User.update({
                 _id: User[0]
                 }, {
                     $set: {
@@ -638,7 +638,7 @@ exports.apiupdateCadastro = function(req, res) {
     }
 
     if(User[11] != "undefined"){
-            Donor.update({
+            User.update({
                 _id: User[0]
                 }, {
                     $set: {
@@ -653,7 +653,7 @@ exports.apiupdateCadastro = function(req, res) {
     }
 
     if(User[12] != "undefined"){
-            Donor.update({
+            User.update({
                 _id: User[0]
                 }, {
                     $set: {
@@ -668,7 +668,7 @@ exports.apiupdateCadastro = function(req, res) {
     }
 
     if(User[13] != "undefined"){
-            Donor.update({
+            User.update({
                 _id: User[0]
                 }, {
                     $set: {
@@ -683,7 +683,7 @@ exports.apiupdateCadastro = function(req, res) {
     }
 
     if(User[14] != "undefined"){
-            Donor.update({
+            User.update({
                 _id: User[0]
                 }, {
                     $set: {
@@ -698,7 +698,7 @@ exports.apiupdateCadastro = function(req, res) {
     }
 
     if(User[15] != "undefined"){
-            Donor.update({
+            User.update({
                 _id: User[0]
                 }, {
                     $set: {
@@ -713,7 +713,7 @@ exports.apiupdateCadastro = function(req, res) {
     }
 
     if(User[16] != "undefined"){
-            Donor.update({
+            User.update({
                 _id: User[0]
                 }, {
                     $set: {
@@ -728,7 +728,7 @@ exports.apiupdateCadastro = function(req, res) {
     }
 
     if(User[17] != "undefined"){
-            Donor.update({
+            User.update({
                 _id: User[0]
                 }, {
                     $set: {
@@ -743,7 +743,7 @@ exports.apiupdateCadastro = function(req, res) {
     }
 
     if(User[18] != "undefined"){
-            Donor.update({
+            User.update({
                 _id: User[0]
                 }, {
                     $set: {

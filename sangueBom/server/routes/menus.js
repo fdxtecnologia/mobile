@@ -6,21 +6,19 @@ module.exports = function(app) {
 
     app.route('/admin/menu/:name')
         .get(function(req, res) {
-            var roles = (req.donor ? req.donor.roles : ['anonymous']);
-            var menu = req.params.name ? req.params.name : 'main';
-            var defaultMenu = (req.query.defaultMenu ? req.query.defaultMenu : []);
-
-            defaultMenu.forEach(function(item, index) {
-                defaultMenu[index] = JSON.parse(item);
-            });
+            var roles = req.user ? [req.user.roles] : ['anonymous'];
+            var menu = req.params.name || 'main';
+            var defaultMenu = req.query.defaultMenu || [];
+            
+            if (!Array.isArray(defaultMenu)) defaultMenu = [defaultMenu];
 
             var items = mean.menus.get({
                 roles: roles,
                 menu: menu,
-                defaultMenu: defaultMenu
+                defaultMenu: defaultMenu.map(function(item) {
+                    return JSON.parse(item);
+                })
             });
-
-            res.jsonp(items);
+            res.json(items);
         });
-
 };
