@@ -1,221 +1,246 @@
-<h1>Centros de doação Grande São Paulo</h1>
-<div class="row" style="padding-top: 20px;">
-    Hospital São Paulo
-    </br>Rua Dr. Diogo de Faria, 824 - esquina com a Rua dos Otonis
-    </br>Vila Clementino - Tel: 5576.4240
+<div class="">
+    <h1>Busca de Centros cadastrados</h1>
 </div>
-<div class="row" style="padding-top: 20px;">
-    Santa Casa de São Paulo
-    </br>Rua Marquês de Itu, 579
-    </br>Santa Cecília - Tel. 3226 7257
+
+<div ng-controller="SearchCenterController" ng-init="initForm()">
+    <form ng-submit="submit()">
+        <div class="form-group row">
+            <label for="name" class="col-md-4 control-label">Distância</label>
+            <div class="col-md-7">
+                <input id="range" type="text" min="0" name="range" placeholder="" class="form-control" ng-model="data.range" />
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div style="padding-top: 30px;" class="col-md-offset-4 col-md-8">
+                <button type="submit" class="btn btn-primary">Buscar</button>
+            </div>
+        </div>
+    </form>
+    <div id="map" class="css" style="height: 360px;"></div>
+
 </div>
-<div class="row" style="padding-top: 20px;">
-    Hospital Sírio Libanês
-    </br>Rua Adma Jafet, 91
-    </br>Cerqueira César - Tel. 3155 0350 - 3155 0353
-</div>
-<div class="row" style="padding-top: 20px;">
-    Hospital Albert Einstein
-    </br>Av. Albert Einstein, 627 / 4 and.
-    </br>Morumbi - Tel. 3747 0444
-</div>
-<div class="row" style="padding-top: 20px;">
-    Beneficência Portuguesa
-    </br>Rua Maestro Cardin, 769 / 10 and.
-    </br>Paraíso - Tel. 3253 5022 ramal 1122
-</div>
-<div class="row" style="padding-top: 20px;">
-    Hospital 9 de Julho
-    </br>Rua Peixoto Gomide, 613
-    </br>Cerqueira César - Tel. 3285 2922
-</div>
-<div class="row" style="padding-top: 20px;">
-    Hospital do Servidor Público Estadual
-    </br>Rua Pedro de Toledo, 1800
-    </br>Ibirapuera - Tel. 5088 8166 - 5088 8249
-</div>
-<div class="row" style="padding-top: 20px;">
-    Hospital das Clínicas
-    </br>Av. Dr. Enéas Carvalho de Aguiar, 115 / 1 and.
-    </br>Prédio dos Ambulatórios - Tel. 0800 55 0300
-</div>
-<div class="row" style="padding-top: 20px;">
-    Instituto Dante Pazzanese
-    </br>Av. Dante Pazzanese, 500
-    </br>Ibirapuera - Tel. 0800 55 0300
-</div>
-<div class="row" style="padding-top: 20px;">
-    Hospital do Mandaqui
-    </br>Rua Voluntários da Pátria, 4301
-    </br>Mandaqui - Tel. 0800 55 0300
-</div>
-<div class="row" style="padding-top: 20px;">
-    Hospital Castelo Branco
-    </br>Rua Ari Barroso, 355
-    </br>Osasco - Tel. 0800 55 0300
-</div>
-<div class="row" style="padding-top: 20px;">
-    Hospital Cruz Azul
-    </br>Av. Lins de Vasconcelos, 356 / 5 and.
-    </br>Cambuci - Tel. 3348 4157
-</div>
-<div class="row" style="padding-top: 20px;">
-    Hospital Prof. Edmundo Vasconcelos
-    </br>Rua Borges Lagoa, 1450
-    </br>Vila Clementino - Tel. 5080 4435 - 5575 5870
-</div>
-<div class="row" style="padding-top: 20px;">
-    Hospital e Maternidade São Cristóvão
-    </br>Rua Terenas, 161
-    </br>Moóca - Tel. 6128 1444
-</div>
-<div class="row" style="padding-top: 20px;">
-    Hospital do Coração
-    </br>Rua Abílio Soares, 176
-    </br>Paraíso - Tel. 3887 6611 ramal 2037
-</div>
-<div class="row" style="padding-top: 20px;">
-    Hospital Alvorada Santo Amaro
-    </br>Rua Mário Lopes Leão, 414
-    </br>Santo Amaro - Tel. 5687 9411 ramal 3140
-</div>
-<div class="row" style="padding-top: 20px;">
-    Hospital do Câncer AC Camargo
-    </br>Rua Prof. Antnio Prudente, 211
-    </br>Liberdade - Tel. 3272 5122
-</div>
-<div class="row" style="padding-top: 20px;">
-    Hospital Santa Paula
-    </br>Av. Santo Amaro, 2468
-    </br>Vila Olímpia - Tel. 3846 7746
-</div>
-<div class="row" style="padding-top: 20px;">
-    Hospital Oswaldo Cruz
-    </br>Rua João Julião, 331
-    </br>Paraíso - Tel. 3269 3543
-</div>
-<div class="row" style="padding-top: 20px;">
-    Hospital Samaritano
-    </br>Rua Conselheiro Brotero, 1486 / 4 and.
-    </br>Higienópolis - Tel. 3821 5300
-</div>
-<div class="row" style="padding-top: 20px;">
-    Hospital Santa Catarina
-    </br>Av. Paulista, 200
-    </br>Paraíso - Tel. 3016 4133
-</div>
-<div class="row" style="padding-top: 20px;">
-    Hospital Pérola Byington
-    </br>Av. Brigadeiro Luís Antnio, 683 / 2 subsolo
-    </br>Centro - Tel. 3241 3433
-</div>
-<div class="row" style="padding-top: 20px;">
-    Hospital São Camilo
-    </br>Av. Pompéia, 1178
-    </br>Pompéia - Tel. 3677 4444
-</div>
-<div class="row" style="padding-top: 20px;">
-    Instituto Bandeirante de Hemoterapia
-    </br>Av. Conselheiro Rodrigues Alves, 325
-    </br>Vila Mariana - Tel. 5549 7011
-</div>
-<div class="row" style="padding-top: 20px;">
-    Hospital Santa Marcelina
-    </br>Rua Harry Danemberg 473
-    </br>Itaquera - Tel.6170 6000
-</div>
-<div class="row" style="padding-top: 20px;">
-    Banco de Sangue Paulista - Unidade Central
-    </br>Rua Iguatinga, 396
-    </br>Santo Amaro - Tel. 5681 6222
-</div>
-<div class="row" style="padding-top: 20px;">
-    Hospital Modelo Tamandaré
-    </br>Rua Tamandaré, 753
-    </br>Aclimação - Tel. 3208 7131
-</div>
-<div class="row" style="padding-top: 20px;">
-    Hospital Sepaco
-    </br>Rua Vergueiro, 4210
-    </br>Vila Mariana - Tel. 5087 9167
-</div>
-<div class="row" style="padding-top: 20px;">
-    Hospital Santa Cruz
-    </br>Rua Prof. Tranquilli, 99
-    </br>Vila Mariana - Tel. 5571 8986
-</div>
-<div class="row" style="padding-top: 20px;">
-    Hospital Carlos Chagas
-    </br>Rua Coronel Portilho, 76
-    </br>Centro - Guarulhos - Tel. 208 9202
-</div>
-<div class="row" style="padding-top: 20px;">
-    Centro de Hematologia de São Paulo
-    </br>Av. Brigadeiro Luiz Antonio, 2533
-    </br>Tel. 3372 6611
-</div>
-<div class="row" style="padding-top: 20px;">
-    Hospital do Servidor Público Municipal
-    </br>Rua Castro Alves, 60
-    </br>Aclimação - Tel. 3277 5303 - 3208 2211 r. 255
-</div>
-<div class="row" style="padding-top: 20px;">
-    Hospital Municipal Cármino Caricchio - (Hospital do Tatuapé)
-    </br>Ave. Celso Garcia, 4815 - Tatuapé
-    </br>Tel. 6191 7000 - 6942 8094
-</div>
-<div class="row" style="padding-top: 20px;">
-    Hospital Dr. Arthur Ribeiro Saboya - (Hospital do Jabaquara)
-    </br>Ave. Francisco de Paula Quintanilha Ribeiro, 860
-    </br>Jabaquara - Tel. 5011 5111 r.158
-</div>
-<div class="row" style="padding-top: 20px;">
-    Hospital Municipal Tide Setúbal
-    </br>Rua Dr. JoséGuilherme Eiras, 123
-    </br>São Miguel Paulista - Tel. 6297 0022 r. 244
-</div>
-<div class="row" style="padding-top: 20px;">
-    Hospital Dr. Fernando Mauro Rocha - (Hospital do Campo Limpo)
-    </br>Estrada de Itapecerica da Serra, 1661
-    </br>Vila Maracanã- Tel. 5812 1379
-</div>
-<div class="row" style="padding-top: 20px;">
-    Hospital Alípio Corrêa Neto
-    </br>Al. Rodrigo de Brum, 1989
-    </br>Ermelino Matarazzo - Tel. 6943 9944 r. 4018
-</div>
-<div class="row" style="padding-top: 20px;">
-    Hospital Pirajussara
-    </br>Av. Ibirama, 1214
-    </br>Tel. 4138 9434
-</div>
-<div class="row" style="padding-top: 20px;">
-    Hospital regional Sul
-    </br>Rua General Roberto Alves Carvalho Filho, 270
-    </br>Largo 13 de Maio - Tel. 5548 4641
-</div>
-<div class="row" style="padding-top: 20px;">
-    Hospital Anchieta
-    </br>Rua Fioravante de Marchi, 37
-    </br>Centro - São Bernardo do Campo - Tel. 4345 4011 r. 239
-</div>
-<div class="row" style="padding-top: 20px;">
-    Hospital São Bernardo
-    </br>Av. Lucas Nogueira Garcez, 446
-    </br>São Bernardo do Campo - Tel. 4123 602
-</div>
-<div class="row" style="padding-top: 20px;">
-    Hospital Brasil
-    </br>Rua Votuporanga, 115
-    </br>Vila Dora - Santo André- Tel. 4992 1354
-</div>
-<div class="row" style="padding-top: 20px;">
-    Hospital e Maternidade Neomater
-    </br>ABC - Rua Paulo de Favari, 162
-    </br>Rudge Ramos - Tel. 4362 1422
-</div>
-<div class="row" style="padding-top: 20px;">
-    Hospital Estadual de Diadema
-    </br>Rua JoséBonifácio, 1614
-    </br>Serraria - Tel. 4056 9075
+
+<div ng-show="false">
+    <h1>Centros de doação Grande São Paulo</h1>
+    <div class="row" style="padding-top: 20px;">
+        Hospital São Paulo
+        </br>Rua Dr. Diogo de Faria, 824 - esquina com a Rua dos Otonis
+        </br>Vila Clementino - Tel: 5576.4240
+    </div>
+    <div class="row" style="padding-top: 20px;">
+        Santa Casa de São Paulo
+        </br>Rua Marquês de Itu, 579
+        </br>Santa Cecília - Tel. 3226 7257
+    </div>
+    <div class="row" style="padding-top: 20px;">
+        Hospital Sírio Libanês
+        </br>Rua Adma Jafet, 91
+        </br>Cerqueira César - Tel. 3155 0350 - 3155 0353
+    </div>
+    <div class="row" style="padding-top: 20px;">
+        Hospital Albert Einstein
+        </br>Av. Albert Einstein, 627 / 4 and.
+        </br>Morumbi - Tel. 3747 0444
+    </div>
+    <div class="row" style="padding-top: 20px;">
+        Beneficência Portuguesa
+        </br>Rua Maestro Cardin, 769 / 10 and.
+        </br>Paraíso - Tel. 3253 5022 ramal 1122
+    </div>
+    <div class="row" style="padding-top: 20px;">
+        Hospital 9 de Julho
+        </br>Rua Peixoto Gomide, 613
+        </br>Cerqueira César - Tel. 3285 2922
+    </div>
+    <div class="row" style="padding-top: 20px;">
+        Hospital do Servidor Público Estadual
+        </br>Rua Pedro de Toledo, 1800
+        </br>Ibirapuera - Tel. 5088 8166 - 5088 8249
+    </div>
+    <div class="row" style="padding-top: 20px;">
+        Hospital das Clínicas
+        </br>Av. Dr. Enéas Carvalho de Aguiar, 115 / 1 and.
+        </br>Prédio dos Ambulatórios - Tel. 0800 55 0300
+    </div>
+    <div class="row" style="padding-top: 20px;">
+        Instituto Dante Pazzanese
+        </br>Av. Dante Pazzanese, 500
+        </br>Ibirapuera - Tel. 0800 55 0300
+    </div>
+    <div class="row" style="padding-top: 20px;">
+        Hospital do Mandaqui
+        </br>Rua Voluntários da Pátria, 4301
+        </br>Mandaqui - Tel. 0800 55 0300
+    </div>
+    <div class="row" style="padding-top: 20px;">
+        Hospital Castelo Branco
+        </br>Rua Ari Barroso, 355
+        </br>Osasco - Tel. 0800 55 0300
+    </div>
+    <div class="row" style="padding-top: 20px;">
+        Hospital Cruz Azul
+        </br>Av. Lins de Vasconcelos, 356 / 5 and.
+        </br>Cambuci - Tel. 3348 4157
+    </div>
+    <div class="row" style="padding-top: 20px;">
+        Hospital Prof. Edmundo Vasconcelos
+        </br>Rua Borges Lagoa, 1450
+        </br>Vila Clementino - Tel. 5080 4435 - 5575 5870
+    </div>
+    <div class="row" style="padding-top: 20px;">
+        Hospital e Maternidade São Cristóvão
+        </br>Rua Terenas, 161
+        </br>Moóca - Tel. 6128 1444
+    </div>
+    <div class="row" style="padding-top: 20px;">
+        Hospital do Coração
+        </br>Rua Abílio Soares, 176
+        </br>Paraíso - Tel. 3887 6611 ramal 2037
+    </div>
+    <div class="row" style="padding-top: 20px;">
+        Hospital Alvorada Santo Amaro
+        </br>Rua Mário Lopes Leão, 414
+        </br>Santo Amaro - Tel. 5687 9411 ramal 3140
+    </div>
+    <div class="row" style="padding-top: 20px;">
+        Hospital do Câncer AC Camargo
+        </br>Rua Prof. Antnio Prudente, 211
+        </br>Liberdade - Tel. 3272 5122
+    </div>
+    <div class="row" style="padding-top: 20px;">
+        Hospital Santa Paula
+        </br>Av. Santo Amaro, 2468
+        </br>Vila Olímpia - Tel. 3846 7746
+    </div>
+    <div class="row" style="padding-top: 20px;">
+        Hospital Oswaldo Cruz
+        </br>Rua João Julião, 331
+        </br>Paraíso - Tel. 3269 3543
+    </div>
+    <div class="row" style="padding-top: 20px;">
+        Hospital Samaritano
+        </br>Rua Conselheiro Brotero, 1486 / 4 and.
+        </br>Higienópolis - Tel. 3821 5300
+    </div>
+    <div class="row" style="padding-top: 20px;">
+        Hospital Santa Catarina
+        </br>Av. Paulista, 200
+        </br>Paraíso - Tel. 3016 4133
+    </div>
+    <div class="row" style="padding-top: 20px;">
+        Hospital Pérola Byington
+        </br>Av. Brigadeiro Luís Antnio, 683 / 2 subsolo
+        </br>Centro - Tel. 3241 3433
+    </div>
+    <div class="row" style="padding-top: 20px;">
+        Hospital São Camilo
+        </br>Av. Pompéia, 1178
+        </br>Pompéia - Tel. 3677 4444
+    </div>
+    <div class="row" style="padding-top: 20px;">
+        Instituto Bandeirante de Hemoterapia
+        </br>Av. Conselheiro Rodrigues Alves, 325
+        </br>Vila Mariana - Tel. 5549 7011
+    </div>
+    <div class="row" style="padding-top: 20px;">
+        Hospital Santa Marcelina
+        </br>Rua Harry Danemberg 473
+        </br>Itaquera - Tel.6170 6000
+    </div>
+    <div class="row" style="padding-top: 20px;">
+        Banco de Sangue Paulista - Unidade Central
+        </br>Rua Iguatinga, 396
+        </br>Santo Amaro - Tel. 5681 6222
+    </div>
+    <div class="row" style="padding-top: 20px;">
+        Hospital Modelo Tamandaré
+        </br>Rua Tamandaré, 753
+        </br>Aclimação - Tel. 3208 7131
+    </div>
+    <div class="row" style="padding-top: 20px;">
+        Hospital Sepaco
+        </br>Rua Vergueiro, 4210
+        </br>Vila Mariana - Tel. 5087 9167
+    </div>
+    <div class="row" style="padding-top: 20px;">
+        Hospital Santa Cruz
+        </br>Rua Prof. Tranquilli, 99
+        </br>Vila Mariana - Tel. 5571 8986
+    </div>
+    <div class="row" style="padding-top: 20px;">
+        Hospital Carlos Chagas
+        </br>Rua Coronel Portilho, 76
+        </br>Centro - Guarulhos - Tel. 208 9202
+    </div>
+    <div class="row" style="padding-top: 20px;">
+        Centro de Hematologia de São Paulo
+        </br>Av. Brigadeiro Luiz Antonio, 2533
+        </br>Tel. 3372 6611
+    </div>
+    <div class="row" style="padding-top: 20px;">
+        Hospital do Servidor Público Municipal
+        </br>Rua Castro Alves, 60
+        </br>Aclimação - Tel. 3277 5303 - 3208 2211 r. 255
+    </div>
+    <div class="row" style="padding-top: 20px;">
+        Hospital Municipal Cármino Caricchio - (Hospital do Tatuapé)
+        </br>Ave. Celso Garcia, 4815 - Tatuapé
+        </br>Tel. 6191 7000 - 6942 8094
+    </div>
+    <div class="row" style="padding-top: 20px;">
+        Hospital Dr. Arthur Ribeiro Saboya - (Hospital do Jabaquara)
+        </br>Ave. Francisco de Paula Quintanilha Ribeiro, 860
+        </br>Jabaquara - Tel. 5011 5111 r.158
+    </div>
+    <div class="row" style="padding-top: 20px;">
+        Hospital Municipal Tide Setúbal
+        </br>Rua Dr. JoséGuilherme Eiras, 123
+        </br>São Miguel Paulista - Tel. 6297 0022 r. 244
+    </div>
+    <div class="row" style="padding-top: 20px;">
+        Hospital Dr. Fernando Mauro Rocha - (Hospital do Campo Limpo)
+        </br>Estrada de Itapecerica da Serra, 1661
+        </br>Vila Maracanã- Tel. 5812 1379
+    </div>
+    <div class="row" style="padding-top: 20px;">
+        Hospital Alípio Corrêa Neto
+        </br>Al. Rodrigo de Brum, 1989
+        </br>Ermelino Matarazzo - Tel. 6943 9944 r. 4018
+    </div>
+    <div class="row" style="padding-top: 20px;">
+        Hospital Pirajussara
+        </br>Av. Ibirama, 1214
+        </br>Tel. 4138 9434
+    </div>
+    <div class="row" style="padding-top: 20px;">
+        Hospital regional Sul
+        </br>Rua General Roberto Alves Carvalho Filho, 270
+        </br>Largo 13 de Maio - Tel. 5548 4641
+    </div>
+    <div class="row" style="padding-top: 20px;">
+        Hospital Anchieta
+        </br>Rua Fioravante de Marchi, 37
+        </br>Centro - São Bernardo do Campo - Tel. 4345 4011 r. 239
+    </div>
+    <div class="row" style="padding-top: 20px;">
+        Hospital São Bernardo
+        </br>Av. Lucas Nogueira Garcez, 446
+        </br>São Bernardo do Campo - Tel. 4123 602
+    </div>
+    <div class="row" style="padding-top: 20px;">
+        Hospital Brasil
+        </br>Rua Votuporanga, 115
+        </br>Vila Dora - Santo André- Tel. 4992 1354
+    </div>
+    <div class="row" style="padding-top: 20px;">
+        Hospital e Maternidade Neomater
+        </br>ABC - Rua Paulo de Favari, 162
+        </br>Rudge Ramos - Tel. 4362 1422
+    </div>
+    <div class="row" style="padding-top: 20px;">
+        Hospital Estadual de Diadema
+        </br>Rua JoséBonifácio, 1614
+        </br>Serraria - Tel. 4056 9075
+    </div>
 </div>

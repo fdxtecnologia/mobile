@@ -49,6 +49,10 @@ var HospitalSchema = new Schema({
 		type: String,
 		required: false
 	},
+	address:{
+		type: String,
+		required: true
+	},
 	latitude:{
 		type: Number,
 		required: false

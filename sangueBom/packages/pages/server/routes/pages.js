@@ -3,7 +3,7 @@
 // The Package is past automatically as first parameter
 module.exports = function(Pages, app, auth, database) {
 
-/*    app.get('/pages/example/anyone', function(req, res, next) {
+    /*    app.get('/pages/example/anyone', function(req, res, next) {
         res.send('Anyone can access this');
     });
 
@@ -24,12 +24,27 @@ module.exports = function(Pages, app, auth, database) {
         });
     });
 */
-    app.get('/donor/profile', auth.requiresLogin, function(req, res, next){
-        res.send();
-    });
 
-    app.get('/hospital/searchdonors', auth.requiresLogin, function (req, res, next) {
-        res.send();
-    });
+/*    app.get('/hospital/searchdonors', auth.requiresLogin, function(req, res, next) {
+        Pages.render('searchdonors', {
+            package: 'pages'
+        }, function(err, html) {
+            console.log('html ' + html);
+            console.log('...........................................................................');
+            console.log('erros' + err);
+            console.log('...........................................................................');
+            
+            pages.find;
+
+            if (req.query['bloodType'] && req.query['radius']) {
+                console.log('passo aqui pq tem parametros');
+                console.log(req.query);
+                res.send(html);
+            } else {
+                console.log('aqui não tem parametro');
+                res.send(html);
+            }
+        });
+    });*/
 
 };

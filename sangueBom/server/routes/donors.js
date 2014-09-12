@@ -28,6 +28,9 @@ module.exports = function(app, passport) {
     app.route('/donor/remove')
         .post(donors.remove);
 
+    app.route('/donor/search')
+        .get(donors.search);
+        
     app.route('/donor/api/remove/:id')
         .put(donors.apiremove);
 
