@@ -26,15 +26,16 @@ module.exports = function(app, passport) {
         .put(hospitals.update);
 
     app.route('/hospital/remove')
-        .put(hospitals.remove)
+        .put(hospitals.remove);
 
+    app.route('/hospital/search')
+        .get(hospitals.search);
 
     // Setting the local strategy route
     app.route('/hospital/login')
         .post(passport.authenticate('hospital', {
             failureFlash: true
         }), function(req, res) {
-            console.log('hospital strategy reached in routes');
             res.send({
                 user: req.user,
                 //redirect: (req.hospital.roles.indexOf('admin') !== -1) ? req.get('referer') : false

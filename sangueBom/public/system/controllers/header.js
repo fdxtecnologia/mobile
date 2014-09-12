@@ -4,20 +4,21 @@ angular.module('mean.system').controller('HeaderController', ['$scope', '$http',
     function($scope, $http, $rootScope, Global, Menus) {
         $scope.global = Global;
         $scope.menus = {};
+        if (!angular.isDefined($rootScope.user) && angular.isDefined(sessionStorage.user)) {
+            $rootScope.user = angular.fromJson(sessionStorage.user);
+            queryMenu('main', defaultMainMenu);
+            $scope.global = {
+                authenticated: !! $rootScope.user,
+                user: $rootScope.user
+            };
+        }else{
+            $scope.global = {
+                authenticated: !! $rootScope.user,
+                user: $rootScope.user
+            };
+            queryMenu('main', defaultMainMenu);
+        };
 
-        $http.get('/loggedin')
-            .success(function(response) {
-                if (response !== 0) {
-                    if (!angular.isDefined($rootScope.user)) {
-                        $rootScope.user = angular.fromJson(sessionStorage.user);
-
-                        $scope.global = {
-                            authenticated: !!$rootScope.user,
-                            user: $rootScope.user
-                        };
-                    };
-                };
-            });
 
         // Default hard coded menu items for main menu
         var defaultMainMenu = [];
@@ -30,7 +31,13 @@ angular.module('mean.system').controller('HeaderController', ['$scope', '$http',
             }, function(menu) {
                 $scope.menus[name] = menu;
             });
-        }
+        };
+
+/*        if (!angular.isDefined($rootScope.user) && angular.isDefined(sessionStorage.user)) {
+            $rootScope.user = sessionStorage.user;
+            console.log('sessionStorage user: ' + $rootScope.user);
+            $scope.$emit('loggedin');
+        };*/
 
         // Query server for menus and check permissions
         queryMenu('main', defaultMainMenu);
@@ -38,15 +45,17 @@ angular.module('mean.system').controller('HeaderController', ['$scope', '$http',
         $scope.isCollapsed = false;
 
         $rootScope.$on('loggedin', function() {
+            sessionStorage.user = angular.toJson($rootScope.user);
             queryMenu('main', defaultMainMenu);
             $scope.global = {
-                authenticated: !!$rootScope.user,
+                authenticated: !! $rootScope.user,
                 user: $rootScope.user
             };
         });
 
         $scope.logout = function() {
-            sessionStorage.user = null;
+            delete sessionStorage.user;
+            $http.get('/logout');
         };
     }
 ]);

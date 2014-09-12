@@ -46,7 +46,7 @@ var DonorSchema = new Schema({
         type: String,
         required: false
     },
-    adress: {
+    address: {
         type: String,
         required: false
     },

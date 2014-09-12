@@ -5,7 +5,8 @@
  */
 var mongoose = require('mongoose'),
     User = mongoose.model('Hospital'),
-    ObjectId = require('mongoose').Types.ObjectId;
+    ObjectId = require('mongoose').Types.ObjectId,
+    geocoder = require('geocoder');
 
 /**
  * Auth callback - is it necessary for local strategy login?
@@ -47,36 +48,50 @@ exports.session = function(req, res) {
 exports.create = function(req, res, next) {
 
     var user = new User(req.body);
+    var result, tmp;
 
     req.assert('name', 'You must enter a name').notEmpty();
     req.assert('email', 'You must enter a valid email address').isEmail();
     req.assert('cnpj', 'You must enter a valid CNPJ').notEmpty();
     req.assert('password', 'Password must be between 8-20 characters long').len(8, 20);
     req.assert('confirmPassword', 'Passwords do not match').equals(req.body.password);
+    req.assert('address', 'Address required').notEmpty();
+
+    geocoder.geocode(user.address, function(err, data) {
+        result = JSON.parse(JSON.stringify(data.results));
+        console.log('TESTE SEM stringify E parse: ' + data.results[0]);
+        tmp = result[0];
+    });
+
 
     var errors = req.validationErrors();
     if (errors) {
         return res.status(400).send(errors);
-    }
+    };
 
-    user.roles = ['hospital'];
+    setTimeout(function() {
+        user.latitude = tmp.geometry.location.lat;
+        user.longitude = tmp.geometry.location.lng;
 
-    user.save(function(err) {
-        if (err) {
-            switch (err.code) {
-                case 11000:
-                    /* Duplicate in DB error code */
-                case 11001:
-                    /* Duplicate in DB error code */
-                    res.status(400).send('Username or Email already taken');
-                    break;
-                default:
-                    res.status(400).send('Please fill all the required fields');
+        user.roles = ['hospital'];
+
+        user.save(function(err) {
+            if (err) {
+                switch (err.code) {
+                    case 11000:
+                        /* Duplicate in DB error code */
+                    case 11001:
+                        /* Duplicate in DB error code */
+                        res.status(400).send('Username or Email already taken');
+                        break;
+                    default:
+                        res.status(400).send('Please fill all the required fields');
+                }
+                return res.status(400);
             }
-            return res.status(400);
-        }
-        res.status(200).send();
-    });
+            res.status(200).send();
+        });
+    }, 2000);
 
 };
 
@@ -141,4 +156,36 @@ exports.remove = function(req, res) {
     } else {
         return res.send(401, 'User Not Authorized');
     };
+};
+
+/**
+ * Search hospital
+ * Return hospital list
+ */
+exports.search = function(req, res) {
+    User.find({
+        'active': true
+    }, 'latitude longitude name', function (err, docs) {
+        if (err) {
+            res.status(200).send(err);
+        }else{
+            res.status(202).send(docs);
+        };
+    });
+    /*User.find({
+        'bloodType': req.query.bloodType,
+        'active': true
+    }, 'bloodType name', function(err, docs) {
+        if (err) {
+            res.status(200).send(err)
+        } else {
+
+            /*
+             * Range limit calculation
+             */
+
+            /*
+            res.status(202).send(docs);
+        };
+    });*/
 };

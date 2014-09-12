@@ -127,6 +127,9 @@
         },
         "org.transistorsoft.cordova.background-geolocation": {
             "PACKAGE_NAME": "br.com.fdxtecnologia.melembreaqui"
+        },
+        "org.apache.cordova.console": {
+            "PACKAGE_NAME": "br.com.fdxtecnologia.melembreaqui"
         }
     },
     "dependent_plugins": {

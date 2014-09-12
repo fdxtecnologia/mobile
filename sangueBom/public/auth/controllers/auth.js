@@ -17,8 +17,6 @@ angular.module('mean.controllers.login', [])
                         // authentication OK
                         $scope.loginError = 0;
                         $rootScope.user = response.user;
-                        sessionStorage.user = angular.toJson(response.user);
-                        console.log(response.user);
                         $rootScope.$emit('loggedin');
                         if (response.redirect) {
                             if (window.location.href === response.redirect) {
@@ -28,7 +26,7 @@ angular.module('mean.controllers.login', [])
                                 window.location = response.redirect;
                             }
                         } else {
-                            $location.url('/');
+                            $location.url('/hospital/searchdonors');
                         }
                     })
                     .error(function(err) {
@@ -45,8 +43,6 @@ angular.module('mean.controllers.login', [])
                     .success(function(response) {
                         $scope.loginError = 0;
                         $rootScope.user = response.user;
-                        sessionStorage.user = angular.toJson(response.user);
-                        console.log(response.user);
                         $rootScope.$emit('loggedin');
                         if (response.redirect) {
                             if (window.location.href === response.redirect) {
@@ -55,7 +51,7 @@ angular.module('mean.controllers.login', [])
                                 window.location = response.redirect;
                             }
                         } else {
-                            $location.url('/');
+                            $location.url('/donor/profile');
                         }
                     })
                     .error(function(err){
@@ -77,15 +73,15 @@ angular.module('mean.controllers.login', [])
                     password: $scope.hospital.password,
                     confirmPassword: $scope.hospital.confirmPassword,
                     cnpj: $scope.hospital.cnpj,
-                    name: $scope.hospital.name
+                    name: $scope.hospital.name,
+                    address: $scope.hospital.address
                 })
                     .success(function() {
                         // authentication OK
                         $scope.registerError = 0;
                         $rootScope.user = $scope.hospital;
-                        sessionStorage.user = angular.toJson($scope.hospital);
                         $rootScope.$emit('loggedin');
-                        $location.url('/');
+                        $location.url('/hospital/searchdonors');
                     })
                     .error(function(error) {
                         // Error: authentication failed
@@ -110,10 +106,13 @@ angular.module('mean.controllers.login', [])
                     .success(function() {
                         // authentication OK
                         $scope.registerError = 0;
+
+                        /* send Donor to global scope (rootScope) */
                         $rootScope.user = $scope.donor;
-                        sessionStorage.user = angular.toJson($scope.donor);
+
+                        /* Save User in Session Storage */
                         $rootScope.$emit('loggedin');
-                        $location.url('/');
+                        $location.url('/donor/profile');
                     })
                     .error(function(error) {
                         // Error: authentication failed

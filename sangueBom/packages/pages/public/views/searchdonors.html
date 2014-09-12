@@ -1,1 +1,29 @@
-<h1>Pagina de busca de doadores</h1>
+<div ng-controller="SearchDonorController" ng-init="initForm()">
+    <h1>Selecione o tipo de doador:</h1>
+    <form ng-submit="submit()">
+        <div class="form-group row">
+            <label for="bloodType" class="col-md-4 control-label">Tipo Sanguineo</label>
+            <div class="col-md-7">
+                <select ng-model="data.bloodType" ng-options="value as value for value in blood" ng-required="true">
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label for="name" class="col-md-4 control-label">Distância</label>
+            <div class="col-md-7">
+                <input id="range" type="text" min="0" name="range" placeholder="" class="form-control" ng-model="data.range" />
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div style="padding-top: 30px;" class="col-md-offset-4 col-md-8">
+                <button type="submit" class="btn btn-primary">Buscar</button>
+            </div>
+        </div>
+    </form>
+    <div class="row" >
+        <div id="map" class="css" style="height: 360px;"></div>
+    </div>
+
+</div>
